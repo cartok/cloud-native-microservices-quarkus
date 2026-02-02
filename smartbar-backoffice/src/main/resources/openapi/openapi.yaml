@@ -1,4 +1,4 @@
-openapi: 3.1.1
+openapi: 3.1.2
 info:
   title: Smartbar Backoffice API
   description: Smartbar Backoffice API
@@ -6,6 +6,7 @@ info:
 paths:
   /categories:
     get:
+      operationId: getCategories
       tags:
         - Categories
       responses:
@@ -18,6 +19,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/category"
     post:
+      operationId: postCategory
       tags:
         - Categories
       requestBody:
@@ -38,6 +40,7 @@ paths:
         required: true
         style: simple
     put:
+      operationId: putCategory
       tags:
         - Categories
       requestBody:
@@ -49,12 +52,14 @@ paths:
         200:
           description: Entity successfully updated
     delete:
+      operationId: deleteCategory
       tags:
         - Categories
       responses:
         200:
           description: Entity successfully deleted
     get:
+      operationId: getCategory
       tags:
         - Categories
       responses:
@@ -66,6 +71,7 @@ paths:
                 $ref: "#/components/schemas/category"
   /articles:
     get:
+      operationId: getArticles
       tags:
         - Articles
       responses:
@@ -78,6 +84,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/article"
     post:
+      operationId: postArticle
       tags:
         - Articles
       requestBody:
@@ -96,6 +103,7 @@ paths:
         in: path
         required: true
     put:
+      operationId: putArticle
       tags:
         - Articles
       requestBody:
@@ -107,12 +115,14 @@ paths:
         200:
           description: Entity successfully updated
     delete:
+      operationId: deleteArticle
       tags:
         - Articles
       responses:
         200:
           description: Entity successfully deleted
     get:
+      operationId: getArticle
       tags:
         - Articles
       responses:
@@ -124,6 +134,7 @@ paths:
                 $ref: "#/components/schemas/article"
   /tables:
     get:
+      operationId: getTables
       tags:
         - Tables
       responses:
@@ -136,6 +147,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/table"
     post:
+      operationId: postTable
       tags:
         - Tables
       requestBody:
@@ -154,6 +166,7 @@ paths:
         in: path
         required: true
     put:
+      operationId: putTable
       tags:
         - Tables
       requestBody:
@@ -165,12 +178,14 @@ paths:
         200:
           description: Entity successfully updated
     delete:
+      operationId: deleteTable
       tags:
         - Tables
       responses:
         200:
           description: Entity successfully deleted
     get:
+      operationId: getTable
       tags:
         - Tables
       responses:
