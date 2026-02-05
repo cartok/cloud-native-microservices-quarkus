@@ -1,10 +1,10 @@
-package de.cartok.quarkus.tutorial.backoffice.api;
+package de.cartok.quarkus.tutorial.backoffice;
 
 import de.cartok.quarkus.tutorial.backoffice.api.model.Article;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ArticleService {
+public class ArticlesService {
   public Article get() {
     return new Article().name("fisch");
   }
