@@ -51,6 +51,12 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>io.rest-assured</groupId>-->
+        <!--            <artifactId>json-path</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--            <version>5.5.6</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
@@ -100,6 +106,8 @@
                                 <configHelp>true</configHelp>
                                 <useJakartaEe>true</useJakartaEe>
                                 <useSwaggerAnnotations>false</useSwaggerAnnotations>
+                                <interfaceOnly>true</interfaceOnly>
+                                <returnResponse>true</returnResponse>
                             </configOptions>
                         </configuration>
                     </execution>
