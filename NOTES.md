@@ -1,13 +1,5 @@
 # Notes
 
-## Lernplan
-
-- Morgen: 4-6
-- Montag: 7-8
-- Dienstag: 9-11
-- Mittwoch: 12+
-- Donnerstag: Rest
-
 ## Quarkus
 
 ### Packages

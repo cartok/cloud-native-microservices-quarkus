@@ -130,6 +130,6 @@
     </profiles>
 
     <modules>
-        <module>smartbar-backoffice</module>
+        <module>backoffice</module>
     </modules>
 </project>

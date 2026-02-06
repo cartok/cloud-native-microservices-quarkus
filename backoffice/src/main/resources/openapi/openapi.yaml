@@ -1,0 +1,234 @@
+openapi: 3.1.2
+info:
+  title: Smartbar Backoffice API
+  description: Smartbar Backoffice API
+  version: 1.0.0
+paths:
+  /categories:
+    get:
+      operationId: getCategories
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/category"
+    post:
+      operationId: postCategory
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/category"
+      responses:
+        201:
+          description: Success
+          $ref: "#/components/responses/201"
+  /categories/{categoryId}:
+    parameters:
+      - name: categoryId
+        schema:
+          type: string
+        in: path
+        required: true
+        style: simple
+    put:
+      operationId: putCategory
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/category"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      operationId: deleteCategory
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      operationId: getCategory
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/category"
+  /articles:
+    get:
+      operationId: getArticles
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/article"
+    post:
+      operationId: postArticle
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+  /articles/{articleId}:
+    parameters:
+      - name: articleId
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      operationId: putArticle
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      operationId: deleteArticle
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      operationId: getArticle
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/article"
+  /tables:
+    get:
+      operationId: getTables
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/table"
+    post:
+      operationId: postTable
+      tags:
+        - Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/table"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+  /tables/{tableId}:
+    parameters:
+      - name: tableId
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      operationId: putTable
+      tags:
+        - Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/table"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      operationId: deleteTable
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      operationId: getTable
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/table"
+components:
+  schemas:
+    category:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    article:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        picture:
+          type: string
+    table:
+      type: object
+      properties:
+        name:
+          type: string
+        seatCount:
+          type: integer
+        active:
+          type: boolean
+  responses:
+    201:
+      description: Entity successfully created
+      headers:
+        Location:
+          description: Entity successfully created
+          schema:
+            type: string
