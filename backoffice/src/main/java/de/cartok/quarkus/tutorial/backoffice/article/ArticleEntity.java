@@ -1,7 +1,8 @@
-package de.cartok.quarkus.tutorial.backoffice.entities;
+package de.cartok.quarkus.tutorial.backoffice.article;
 
 import java.math.BigDecimal;
 
+import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 
 @Entity

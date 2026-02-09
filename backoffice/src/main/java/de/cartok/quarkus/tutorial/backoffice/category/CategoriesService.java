@@ -1,7 +1,7 @@
-package de.cartok.quarkus.tutorial.backoffice.service;
+package de.cartok.quarkus.tutorial.backoffice.category;
 
+import de.cartok.quarkus.tutorial.backoffice.CrudService;
 import de.cartok.quarkus.tutorial.backoffice.api.model.Category;
-import de.cartok.quarkus.tutorial.backoffice.entities.CategoryEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

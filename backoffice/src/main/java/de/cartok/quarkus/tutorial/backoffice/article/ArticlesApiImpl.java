@@ -1,7 +1,7 @@
-package de.cartok.quarkus.tutorial.backoffice.api;
+package de.cartok.quarkus.tutorial.backoffice.article;
 
+import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.Article;
-import de.cartok.quarkus.tutorial.backoffice.service.ArticlesService;
 import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;

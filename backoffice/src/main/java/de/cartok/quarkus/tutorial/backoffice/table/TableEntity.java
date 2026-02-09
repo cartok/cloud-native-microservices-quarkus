@@ -1,5 +1,6 @@
-package de.cartok.quarkus.tutorial.backoffice.entities;
+package de.cartok.quarkus.tutorial.backoffice.table;
 
+import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 
 @Entity

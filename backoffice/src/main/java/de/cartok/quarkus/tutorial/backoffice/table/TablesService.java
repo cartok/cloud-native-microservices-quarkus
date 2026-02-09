@@ -1,9 +1,9 @@
-package de.cartok.quarkus.tutorial.backoffice.service;
+package de.cartok.quarkus.tutorial.backoffice.table;
 
 import java.util.List;
 
+import de.cartok.quarkus.tutorial.backoffice.CrudService;
 import de.cartok.quarkus.tutorial.backoffice.api.model.Table;
-import de.cartok.quarkus.tutorial.backoffice.entities.TableEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

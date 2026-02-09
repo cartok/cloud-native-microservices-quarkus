@@ -1,9 +1,9 @@
-package de.cartok.quarkus.tutorial.backoffice.api;
+package de.cartok.quarkus.tutorial.backoffice.category;
 
 import java.util.List;
 
+import de.cartok.quarkus.tutorial.backoffice.api.CategoriesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.Category;
-import de.cartok.quarkus.tutorial.backoffice.service.CategoriesService;
 import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;

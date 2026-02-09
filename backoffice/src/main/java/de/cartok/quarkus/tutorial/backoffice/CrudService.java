@@ -1,4 +1,4 @@
-package de.cartok.quarkus.tutorial.backoffice.service;
+package de.cartok.quarkus.tutorial.backoffice;
 
 import jakarta.persistence.EntityManager;
 

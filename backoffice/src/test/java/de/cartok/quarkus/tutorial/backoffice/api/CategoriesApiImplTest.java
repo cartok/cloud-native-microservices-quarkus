@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import de.cartok.quarkus.tutorial.backoffice.api.model.Category;
-import de.cartok.quarkus.tutorial.backoffice.service.CategoriesService;
+import de.cartok.quarkus.tutorial.backoffice.category.CategoriesService;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -20,7 +20,7 @@ class CategoriesApiImplTest {
 
   @BeforeEach
   void setUp() {
-    Mockito.when(categoriesServiceMock.get()).thenReturn(new Category().name("drinksööö!"));
+    Mockito.when(categoriesServiceMock.get()).thenReturn(new Category().name("drinks!"));
   }
 
   @Test

@@ -1,4 +1,4 @@
-package de.cartok.quarkus.tutorial.backoffice.entities;
+package de.cartok.quarkus.tutorial.backoffice;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

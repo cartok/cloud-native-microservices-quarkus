@@ -1,7 +1,7 @@
-package de.cartok.quarkus.tutorial.backoffice.service;
+package de.cartok.quarkus.tutorial.backoffice.article;
 
+import de.cartok.quarkus.tutorial.backoffice.CrudService;
 import de.cartok.quarkus.tutorial.backoffice.api.model.Article;
-import de.cartok.quarkus.tutorial.backoffice.entities.ArticleEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

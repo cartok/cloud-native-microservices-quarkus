@@ -1,10 +1,9 @@
-package de.cartok.quarkus.tutorial.backoffice.api;
+package de.cartok.quarkus.tutorial.backoffice.table;
 
 import java.net.URI;
 
+import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.Table;
-import de.cartok.quarkus.tutorial.backoffice.entities.TableEntity;
-import de.cartok.quarkus.tutorial.backoffice.service.TablesService;
 import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
