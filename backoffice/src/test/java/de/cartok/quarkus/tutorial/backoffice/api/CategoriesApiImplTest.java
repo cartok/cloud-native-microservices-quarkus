@@ -20,7 +20,7 @@ class CategoriesApiImplTest {
 
   @BeforeEach
   void setUp() {
-    Mockito.when(categoriesServiceMock.get()).thenReturn(new Category().name("drinks!"));
+    Mockito.when(categoriesServiceMock.get()).thenReturn(new Category().name("drinksööö!"));
   }
 
   @Test
