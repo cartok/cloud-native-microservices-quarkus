@@ -1,1 +1,1 @@
--- CREATE SCHEMA IF NOT EXISTS smartbar;
+create schema if not exists smartbar;

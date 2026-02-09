@@ -1,0 +1,19 @@
+version: 3
+
+set: [ pipefail ]
+
+tasks:
+  dev:
+    cmds:
+      - docker compose up -d
+      - |
+        until pg_isready -h localhost -p 52520; do
+          echo "Waiting until DB is ready before starting Quarkus."
+          sleep 1
+        done
+      - quarkus dev
+      - docker compose down
+
+  destroy:
+    cmds:
+      - docker compose down -v

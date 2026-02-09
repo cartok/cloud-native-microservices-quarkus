@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    ports:
+      - "52520:5432"
+    environment:
+      POSTGRES_USER: quarkus
+      POSTGRES_PASSWORD: quarkus
+      POSTGRES_DB: smartbar
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+volumes:
+  pgdata:
+
+# TODO: Schema & Table init issues.
