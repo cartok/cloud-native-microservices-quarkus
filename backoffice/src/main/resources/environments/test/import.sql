@@ -4,4 +4,4 @@
 -- values ("Fish and Chips",
 --         1337,
 --         "The best fish and chips on the island can be eaten at Breege Harbor.",
---         "https://picsum.photos/200")
+--         "<A base64 image string>")

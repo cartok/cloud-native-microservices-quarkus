@@ -29,7 +29,7 @@ public class TablesResource implements TablesApi {
 
   @Override
   public Response getTables() {
-    final var tables = tablesService.getAll();
+    final var tables = tablesService.listAll();
     return null;
   }
 

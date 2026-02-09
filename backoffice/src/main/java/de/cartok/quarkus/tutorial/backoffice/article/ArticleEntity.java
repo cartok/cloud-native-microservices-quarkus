@@ -10,7 +10,7 @@ public class ArticleEntity extends BaseEntity {
   private String name;
   private BigDecimal price;
   private String description;
-  private String picture;
+  private String pictureBase64;
 
   public String getName() {
     return name;
@@ -36,11 +36,11 @@ public class ArticleEntity extends BaseEntity {
     this.description = description;
   }
 
-  public String getPicture() {
-    return picture;
+  public String getPictureBase64() {
+    return pictureBase64;
   }
 
-  public void setPicture(String picture) {
-    this.picture = picture;
+  public void setPictureBase64(String picture) {
+    this.pictureBase64 = picture;
   }
 }

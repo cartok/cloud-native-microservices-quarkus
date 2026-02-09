@@ -14,4 +14,9 @@ public class CategoriesService extends CrudService<CategoryEntity> {
   public ApiCategory get() {
     return new ApiCategory().name("fisch");
   }
+
+  @Override
+  protected Class<CategoryEntity> getEntityClass() {
+    return CategoryEntity.class;
+  }
 }

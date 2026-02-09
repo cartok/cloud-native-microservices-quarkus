@@ -1,9 +1,6 @@
 package de.cartok.quarkus.tutorial.backoffice.table;
 
-import java.util.List;
-
 import de.cartok.quarkus.tutorial.backoffice.CrudService;
-import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -20,11 +17,8 @@ public class TablesService extends CrudService<TableEntity> {
     super(entityManager);
   }
 
-  public List<ApiTable> getAll() {
-    return List.of(new ApiTable().name("kröte"));
-  }
-
-  public ApiTable get() {
-    return new ApiTable().name("fisch");
+  @Override
+  protected Class<TableEntity> getEntityClass() {
+    return TableEntity.class;
   }
 }

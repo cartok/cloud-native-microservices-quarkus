@@ -14,4 +14,9 @@ public class ArticlesService extends CrudService<ArticleEntity> {
   public ApiArticle get() {
     return null;
   }
+
+  @Override
+  protected Class<ArticleEntity> getEntityClass() {
+    return ArticleEntity.class;
+  }
 }
