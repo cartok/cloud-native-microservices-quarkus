@@ -3,37 +3,38 @@ package de.cartok.quarkus.tutorial.backoffice.table;
 import java.net.URI;
 
 import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
-import de.cartok.quarkus.tutorial.backoffice.api.model.Table;
+import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
 import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
 @NonBlocking
-public class TablesApiImpl implements TablesApi {
+public class TablesResource implements TablesApi {
   private final TablesService tablesService;
 
   @Inject
-  public TablesApiImpl(TablesService tablesService) {
+  public TablesResource(TablesService tablesService) {
     this.tablesService = tablesService;
   }
 
   @Override
-  public Response deleteTable(String tableId) {
+  public Response deleteTable(Long tableId) {
     return null;
   }
 
   @Override
-  public Response getTable(String tableId) {
+  public Response getTable(Long tableId) {
     return null;
   }
 
   @Override
   public Response getTables() {
+    final var tables = tablesService.getAll();
     return null;
   }
 
   @Override
-  public Response postTable(Table table) {
+  public Response postTable(ApiTable table) {
     final var tableEntity = new TableEntity();
     tableEntity.setActive(table.getActive());
     tableEntity.setName(table.getName());
@@ -44,7 +45,7 @@ public class TablesApiImpl implements TablesApi {
   }
 
   @Override
-  public Response putTable(String tableId, Table table) {
+  public Response putTable(Long tableId, ApiTable table) {
     return null;
   }
 }

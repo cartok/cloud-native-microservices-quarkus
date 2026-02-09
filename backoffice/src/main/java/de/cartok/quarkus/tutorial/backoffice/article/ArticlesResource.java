@@ -1,28 +1,28 @@
 package de.cartok.quarkus.tutorial.backoffice.article;
 
 import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
-import de.cartok.quarkus.tutorial.backoffice.api.model.Article;
+import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
 @NonBlocking
-public class ArticlesApiImpl implements ArticlesApi {
+public class ArticlesResource implements ArticlesApi {
 
   private final ArticlesService articlesService;
 
   @Inject
-  public ArticlesApiImpl(final ArticlesService articlesService) {
+  public ArticlesResource(final ArticlesService articlesService) {
     this.articlesService = articlesService;
   }
 
   @Override
-  public Response deleteArticle(String articleId) {
+  public Response deleteArticle(Long articleId) {
     return null;
   }
 
   @Override
-  public Response getArticle(String articleId) {
+  public Response getArticle(Long articleId) {
     return null;
   }
 
@@ -32,12 +32,12 @@ public class ArticlesApiImpl implements ArticlesApi {
   }
 
   @Override
-  public Response postArticle(Article article) {
+  public Response postArticle(Long xCategoryId, ApiArticle apiArticle) {
     return null;
   }
 
   @Override
-  public Response putArticle(String articleId, Article article) {
+  public Response putArticle(Long articleId, ApiArticle apiArticle) {
     return null;
   }
 }

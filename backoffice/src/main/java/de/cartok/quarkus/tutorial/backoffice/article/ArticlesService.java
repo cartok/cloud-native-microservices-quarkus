@@ -1,7 +1,7 @@
 package de.cartok.quarkus.tutorial.backoffice.article;
 
 import de.cartok.quarkus.tutorial.backoffice.CrudService;
-import de.cartok.quarkus.tutorial.backoffice.api.model.Article;
+import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -11,7 +11,7 @@ public class ArticlesService extends CrudService<ArticleEntity> {
     super(null);
   }
 
-  public Article get() {
+  public ApiArticle get() {
     return null;
   }
 }

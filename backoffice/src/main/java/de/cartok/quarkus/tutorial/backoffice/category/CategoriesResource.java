@@ -3,22 +3,22 @@ package de.cartok.quarkus.tutorial.backoffice.category;
 import java.util.List;
 
 import de.cartok.quarkus.tutorial.backoffice.api.CategoriesApi;
-import de.cartok.quarkus.tutorial.backoffice.api.model.Category;
+import de.cartok.quarkus.tutorial.backoffice.api.model.ApiCategory;
 import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
 @NonBlocking
-public class CategoriesApiImpl implements CategoriesApi {
+public class CategoriesResource implements CategoriesApi {
   private final CategoriesService categoryService;
 
   @Inject
-  public CategoriesApiImpl(CategoriesService categoryService) {
+  public CategoriesResource(CategoriesService categoryService) {
     this.categoryService = categoryService;
   }
 
   @Override
-  public Response deleteCategory(String categoryId) {
+  public Response deleteCategory(Long categoryId) {
     return null;
   }
 
@@ -28,17 +28,17 @@ public class CategoriesApiImpl implements CategoriesApi {
   }
 
   @Override
-  public Response getCategory(String categoryId) {
+  public Response getCategory(Long categoryId) {
     return null;
   }
 
   @Override
-  public Response postCategory(Category category) {
+  public Response postCategory(ApiCategory category) {
     return null;
   }
 
   @Override
-  public Response putCategory(String categoryId, Category category) {
+  public Response putCategory(Long categoryId, ApiCategory category) {
     return null;
   }
 }

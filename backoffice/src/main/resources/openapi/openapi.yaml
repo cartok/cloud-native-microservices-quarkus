@@ -17,7 +17,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/category"
+                  $ref: "#/components/schemas/apiCategory"
     post:
       operationId: postCategory
       tags:
@@ -26,7 +26,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/category"
+              $ref: "#/components/schemas/apiCategory"
       responses:
         201:
           description: Success
@@ -35,7 +35,7 @@ paths:
     parameters:
       - name: categoryId
         schema:
-          type: string
+          $ref: "#/components/schemas/id"
         in: path
         required: true
         style: simple
@@ -47,7 +47,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/category"
+              $ref: "#/components/schemas/apiCategory"
       responses:
         200:
           description: Entity successfully updated
@@ -68,7 +68,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/category"
+                $ref: "#/components/schemas/apiCategory"
   /articles:
     get:
       operationId: getArticles
@@ -82,7 +82,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/article"
+                  $ref: "#/components/schemas/apiArticle"
     post:
       operationId: postArticle
       tags:
@@ -91,7 +91,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/article"
+              $ref: "#/components/schemas/apiArticle"
+      parameters:
+        - name: x-category-id
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         201:
           $ref: "#/components/responses/201"
@@ -99,7 +106,7 @@ paths:
     parameters:
       - name: articleId
         schema:
-          type: string
+          $ref: "#/components/schemas/id"
         in: path
         required: true
     put:
@@ -110,7 +117,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/article"
+              $ref: "#/components/schemas/apiArticle"
       responses:
         200:
           description: Entity successfully updated
@@ -131,7 +138,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/article"
+                $ref: "#/components/schemas/apiArticle"
   /tables:
     get:
       operationId: getTables
@@ -145,7 +152,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/table"
+                  $ref: "#/components/schemas/apiTable"
     post:
       operationId: postTable
       tags:
@@ -154,7 +161,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/table"
+              $ref: "#/components/schemas/apiTable"
       responses:
         201:
           $ref: "#/components/responses/201"
@@ -162,7 +169,7 @@ paths:
     parameters:
       - name: tableId
         schema:
-          type: string
+          $ref: "#/components/schemas/id"
         in: path
         required: true
     put:
@@ -173,7 +180,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/table"
+              $ref: "#/components/schemas/apiTable"
       responses:
         200:
           description: Entity successfully updated
@@ -194,17 +201,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/table"
+                $ref: "#/components/schemas/apiTable"
 components:
   schemas:
-    category:
+    id:
+      type: integer
+      format: int64
+    apiCategory:
       type: object
       properties:
         name:
           type: string
         description:
           type: string
-    article:
+    apiArticle:
       type: object
       properties:
         name:
@@ -215,7 +225,7 @@ components:
           type: string
         picture:
           type: string
-    table:
+    apiTable:
       type: object
       properties:
         name:
