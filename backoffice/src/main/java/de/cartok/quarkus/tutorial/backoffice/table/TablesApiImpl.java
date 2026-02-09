@@ -34,14 +34,11 @@ public class TablesApiImpl implements TablesApi {
 
   @Override
   public Response postTable(Table table) {
-    // Warum hat der tutor im api layer db object erstellt und nicht im service?
     final var tableEntity = new TableEntity();
     tableEntity.setActive(table.getActive());
     tableEntity.setName(table.getName());
     tableEntity.setSeatCount(table.getSeatCount());
-    // Warum nimmt der table service nicht ein model an und erzeugt die entity?
     final var persistedTable = tablesService.persist(tableEntity);
-    // TODO: Error handling fehlt
     final var response = Response.created(URI.create("/tables/" + persistedTable.getId())).build();
     return response;
   }
