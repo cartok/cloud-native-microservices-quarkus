@@ -6,11 +6,9 @@ import java.util.Optional;
 
 import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
-import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-@NonBlocking
 public class TablesResource implements TablesApi {
   private final TablesService tablesService;
 

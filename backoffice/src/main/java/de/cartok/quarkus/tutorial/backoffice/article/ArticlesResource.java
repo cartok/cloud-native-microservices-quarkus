@@ -8,11 +8,9 @@ import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoriesService;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
-import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-@NonBlocking
 public class ArticlesResource implements ArticlesApi {
 
   private final ArticlesService articlesService;

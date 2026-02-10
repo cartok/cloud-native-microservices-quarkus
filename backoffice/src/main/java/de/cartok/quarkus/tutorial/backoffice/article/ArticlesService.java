@@ -1,8 +1,9 @@
 package de.cartok.quarkus.tutorial.backoffice.article;
 
 import de.cartok.quarkus.tutorial.backoffice.CrudService;
-import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 @ApplicationScoped
 public class ArticlesService extends CrudService<ArticleEntity> {
@@ -11,8 +12,9 @@ public class ArticlesService extends CrudService<ArticleEntity> {
     super(null);
   }
 
-  public ApiArticle get() {
-    return null;
+  @Inject
+  public ArticlesService(final EntityManager entityManager) {
+    super(entityManager);
   }
 
   @Override

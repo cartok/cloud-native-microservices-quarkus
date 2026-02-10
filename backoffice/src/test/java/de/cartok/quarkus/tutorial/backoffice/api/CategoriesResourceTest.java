@@ -7,8 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import de.cartok.quarkus.tutorial.backoffice.api.model.ApiCategory;
+import java.util.List;
+
 import de.cartok.quarkus.tutorial.backoffice.category.CategoriesService;
+import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -20,7 +22,9 @@ class CategoriesResourceTest {
 
   @BeforeEach
   void setUp() {
-    Mockito.when(categoriesServiceMock.get()).thenReturn(new ApiCategory().name("drinks!"));
+    final CategoryEntity category = new CategoryEntity();
+    category.setName("Mock");
+    Mockito.when(categoriesServiceMock.listAll()).thenReturn(List.of(category));
   }
 
   @Test

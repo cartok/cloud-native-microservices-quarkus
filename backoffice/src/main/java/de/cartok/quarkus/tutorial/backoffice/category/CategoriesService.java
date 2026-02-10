@@ -1,8 +1,9 @@
 package de.cartok.quarkus.tutorial.backoffice.category;
 
 import de.cartok.quarkus.tutorial.backoffice.CrudService;
-import de.cartok.quarkus.tutorial.backoffice.api.model.ApiCategory;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 @ApplicationScoped
 public class CategoriesService extends CrudService<CategoryEntity> {
@@ -11,8 +12,9 @@ public class CategoriesService extends CrudService<CategoryEntity> {
     super(null);
   }
 
-  public ApiCategory get() {
-    return new ApiCategory().name("fisch");
+  @Inject
+  public CategoriesService(final EntityManager entityManager) {
+    super(entityManager);
   }
 
   @Override
