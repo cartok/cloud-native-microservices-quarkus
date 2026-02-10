@@ -1,6 +1,6 @@
 ### Create new
 POST {{url}}/articles
-x-category-id: 2
+x-category-id: 21
 Content-Type: application/json
 
 {
@@ -11,13 +11,13 @@ Content-Type: application/json
 }
 
 ### Modify
-PUT {{url}}/articles/51
+PUT {{url}}/articles/1
 Content-Type: application/json
 
 {
-  "name": "Merlot",
-  "description": "a tasty red wine, try it!",
-  "price": 5.30,
+  "name": "Chardonnay",
+  "description": "a tasty white wine, try it!",
+  "price": 6.30,
   "picture": "abcd"
 }
 
@@ -25,7 +25,7 @@ Content-Type: application/json
 GET {{url}}/articles
 
 ### Get single
-GET {{url}}/articles/51
+GET {{url}}/articles/1
 
 ### Delete
-DELETE {{url}}/articles/51
+DELETE {{url}}/articles/1

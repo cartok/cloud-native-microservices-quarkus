@@ -11,10 +11,12 @@ import jakarta.ws.rs.core.Response;
 
 public class CategoriesResource implements CategoriesApi {
   private final CategoriesService categoriesService;
+  private final CategoryMapper mapper;
 
   @Inject
-  public CategoriesResource(CategoriesService categoriesService) {
+  public CategoriesResource(CategoriesService categoriesService, CategoryMapper mapper) {
     this.categoriesService = categoriesService;
+    this.mapper = mapper;
   }
 
   @Override
@@ -29,7 +31,7 @@ public class CategoriesResource implements CategoriesApi {
   @Override
   public Response getCategories() {
     final List<CategoryEntity> categories = categoriesService.listAll();
-    return Response.ok(categories.stream().map(this::mapCategoryToApiCategory).toList())
+    return Response.ok(categories.stream().map(mapper::mapToDto).toList())
       .build();
   }
 
@@ -39,13 +41,13 @@ public class CategoriesResource implements CategoriesApi {
     if (category.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
-    return Response.ok(mapCategoryToApiCategory(category.get())).build();
+    return Response.ok(mapper.mapToDto(category.get())).build();
   }
 
   @Override
   public Response postCategory(ApiCategory apiCategory) {
     final CategoryEntity categoryEntity = new CategoryEntity();
-    mapApiCategoryToCategory(apiCategory, categoryEntity);
+    mapper.mapToEntity(apiCategory, categoryEntity);
     final CategoryEntity persitedCategory = categoriesService.persist(categoryEntity);
     return Response.created(URI.create("/categories/" + persitedCategory.getId())).build();
   }
@@ -57,21 +59,8 @@ public class CategoriesResource implements CategoriesApi {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
     final CategoryEntity categoryEntity = existingCategory.get();
-    mapApiCategoryToCategory(apiCategory, categoryEntity);
+    mapper.mapToEntity(apiCategory, categoryEntity);
     categoriesService.update(categoryEntity);
     return Response.ok().build();
-  }
-
-  private void mapApiCategoryToCategory(ApiCategory apiCategory, CategoryEntity category) {
-    category.setName(apiCategory.getName());
-    category.setDescription(apiCategory.getDescription());
-  }
-
-  private ApiCategory mapCategoryToApiCategory(CategoryEntity category) {
-    final ApiCategory apiCategory = new ApiCategory();
-    apiCategory.setDescription(category.getDescription());
-    apiCategory.setName(category.getName());
-    apiCategory.setId(category.getId());
-    return apiCategory;
   }
 }

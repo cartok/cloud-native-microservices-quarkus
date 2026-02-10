@@ -15,11 +15,13 @@ public class ArticlesResource implements ArticlesApi {
 
   private final ArticlesService articlesService;
   private final CategoriesService categoriesService;
+  private final ArticleMapper mapper;
 
   @Inject
-  public ArticlesResource(final ArticlesService articlesService, final CategoriesService categoriesService) {
+  public ArticlesResource(ArticlesService articlesService, CategoriesService categoriesService, ArticleMapper mapper) {
     this.articlesService = articlesService;
     this.categoriesService = categoriesService;
+    this.mapper = mapper;
   }
 
   @Override
@@ -37,23 +39,26 @@ public class ArticlesResource implements ArticlesApi {
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
-    return Response.ok().build();
+    return Response.ok(mapper.mapToDto(optionalArticleEntity.get())).build();
   }
 
   @Override
   public Response getArticles() {
     final List<ArticleEntity> articleEntities = articlesService.listAll();
-    return Response.ok(articleEntities.stream().map(this::mapArticleEntityToApiArticle)).build();
+    return Response.ok(articleEntities.stream().map(mapper::mapToDto)).build();
   }
 
   @Override
   public Response postArticle(Long xCategoryId, ApiArticle apiArticle) {
     final Optional<CategoryEntity> category = categoriesService.getById(xCategoryId);
     if (category.isEmpty()) {
-      return Response.status(Response.Status.NOT_FOUND).build();
+      return Response.status(
+        Response.Status.NOT_FOUND.getStatusCode(),
+        "Could not create article cause category with id=" + xCategoryId + " does not exist."
+      ).build();
     }
     final ArticleEntity articleEntity = new ArticleEntity();
-    mergeApiArticleIntoArticleEntity(apiArticle, articleEntity);
+    mapper.mapToEntity(apiArticle, articleEntity);
     articleEntity.setCategory(category.get());
     final ArticleEntity persitedArticle = articlesService.persist(articleEntity);
     return Response.created(URI.create("/articles/" + persitedArticle.getId())).build();
@@ -66,25 +71,8 @@ public class ArticlesResource implements ArticlesApi {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
     final ArticleEntity articleEntity = optionalArticleEntity.get();
-    mergeApiArticleIntoArticleEntity(apiArticle, articleEntity);
+    mapper.mapToEntity(apiArticle, articleEntity);
     articlesService.update(articleEntity);
     return Response.ok().build();
-  }
-
-  public void mergeApiArticleIntoArticleEntity(ApiArticle apiArticle, ArticleEntity articleEntity) {
-    articleEntity.setDescription(apiArticle.getDescription());
-    articleEntity.setName(apiArticle.getName());
-    articleEntity.setPrice(apiArticle.getPrice());
-    articleEntity.setPictureBase64(apiArticle.getPicture());
-  }
-
-  public ApiArticle mapArticleEntityToApiArticle(ArticleEntity articleEntity) {
-    final ApiArticle apiArticle = new ApiArticle();
-    apiArticle.setDescription(articleEntity.getDescription());
-    apiArticle.setName(articleEntity.getName());
-    apiArticle.setPrice(articleEntity.getPrice());
-    apiArticle.setPicture(articleEntity.getPictureBase64());
-    apiArticle.setId(articleEntity.getId());
-    return apiArticle;
   }
 }
