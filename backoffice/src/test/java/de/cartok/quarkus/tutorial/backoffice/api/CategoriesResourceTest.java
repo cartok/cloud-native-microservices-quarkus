@@ -23,7 +23,7 @@ class CategoriesResourceTest {
   @BeforeEach
   void setUp() {
     final CategoryEntity category = new CategoryEntity();
-    category.setName("Mock");
+    category.setName("drinks!");
     Mockito.when(categoriesServiceMock.listAll()).thenReturn(List.of(category));
   }
 
