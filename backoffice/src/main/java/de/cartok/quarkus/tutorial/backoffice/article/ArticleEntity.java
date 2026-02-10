@@ -3,7 +3,9 @@ package de.cartok.quarkus.tutorial.backoffice.article;
 import java.math.BigDecimal;
 
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
+import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ArticleEntity extends BaseEntity {
@@ -11,6 +13,9 @@ public class ArticleEntity extends BaseEntity {
   private BigDecimal price;
   private String description;
   private String pictureBase64;
+
+  @ManyToOne
+  private CategoryEntity category;
 
   public String getName() {
     return name;
@@ -42,5 +47,13 @@ public class ArticleEntity extends BaseEntity {
 
   public void setPictureBase64(String picture) {
     this.pictureBase64 = picture;
+  }
+
+  public CategoryEntity getCategory() {
+    return category;
+  }
+
+  public void setCategory(CategoryEntity category) {
+    this.category = category;
   }
 }

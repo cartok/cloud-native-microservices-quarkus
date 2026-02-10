@@ -6,8 +6,10 @@ import java.util.Optional;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 
-public abstract class CrudService<Entity> {
+@Transactional
+public abstract class CrudService<Entity extends BaseEntity> {
   private final EntityManager entityManager;
 
   public CrudService(final EntityManager entityManager) {
@@ -19,8 +21,8 @@ public abstract class CrudService<Entity> {
     return entity;
   }
 
-  public Entity update(Entity entity) {
-    return entityManager.merge(entity);
+  public Entity update(Entity detachedEntity) {
+    return entityManager.merge(detachedEntity);
   }
 
   public List<Entity> listAll() {

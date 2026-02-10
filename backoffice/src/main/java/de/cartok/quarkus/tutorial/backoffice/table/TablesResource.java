@@ -20,10 +20,22 @@ public class TablesResource implements TablesApi {
   }
 
   @Override
+  public Response deleteTable(Long tableId) {
+    final Optional<TableEntity> tableEntities = tablesService.deleteById(tableId);
+    if (tableEntities.isEmpty()) {
+      return Response.status(Response.Status.NOT_FOUND).build();
+    }
+    return Response.ok().build();
+  }
+
+  @Override
   public Response getTable(Long tableId) {
-    final List<TableEntity> tableEntities = tablesService.listAll();
-    return Response.ok(tableEntities.stream().map(this::mapTableToApiTable).toList())
-      .build();
+    final Optional<TableEntity> tableEntity = tablesService.getById(tableId);
+    if (tableEntity.isEmpty()) {
+      return Response.status(Response.Status.NOT_FOUND).build();
+    } else {
+      return Response.ok(tableEntity).build();
+    }
   }
 
   @Override
@@ -50,15 +62,6 @@ public class TablesResource implements TablesApi {
     final TableEntity tableEntity = existingTable.get();
     mapApiTableToTable(apiTable, tableEntity);
     tablesService.update(tableEntity);
-    return Response.ok().build();
-  }
-  
-  @Override
-  public Response deleteTable(Long tableId) {
-    final Optional<TableEntity> tableEntities = tablesService.deleteById(tableId);
-    if (tableEntities.isEmpty()) {
-      return Response.status(Response.Status.NOT_FOUND).build();
-    }
     return Response.ok().build();
   }
 
