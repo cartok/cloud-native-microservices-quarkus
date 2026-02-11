@@ -3,7 +3,7 @@ package de.cartok.quarkus.tutorial.backoffice.table;
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 
-@Entity
+@Entity(name = "restaurant_table")
 public class TableEntity extends BaseEntity {
   private String name;
   private Integer seatCount;

@@ -7,7 +7,7 @@ import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
-@Entity
+@Entity(name = "article")
 public class ArticleEntity extends BaseEntity {
   private String name;
   private BigDecimal price;

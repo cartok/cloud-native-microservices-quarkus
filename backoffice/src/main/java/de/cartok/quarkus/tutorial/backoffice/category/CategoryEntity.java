@@ -3,7 +3,7 @@ package de.cartok.quarkus.tutorial.backoffice.category;
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 
-@Entity
+@Entity(name = "category")
 public class CategoryEntity extends BaseEntity {
   private String name;
   private String description;
