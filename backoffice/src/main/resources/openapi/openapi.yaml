@@ -231,6 +231,10 @@ components:
           type: string
     apiTable:
       type: object
+      required:
+        - name
+        - seatCount
+        - active
       properties:
         id:
           $ref: "#/components/schemas/id"
