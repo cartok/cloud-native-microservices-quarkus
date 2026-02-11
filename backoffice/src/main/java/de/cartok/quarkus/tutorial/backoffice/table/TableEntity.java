@@ -4,23 +4,24 @@ import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity()
 @Table(name = "restaurant_table", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"name"})
 })
+@Valid
 public class TableEntity extends BaseEntity {
   @NotNull
-  //  @Column(nullable = false)
   private String name;
 
   @NotNull
-  //  @Column(nullable = false)
+  @PositiveOrZero
   private Integer seatCount;
 
   @NotNull
-  //  @Column(nullable = false)
   private Boolean active;
 
   public Boolean getActive() {

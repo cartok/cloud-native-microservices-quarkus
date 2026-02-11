@@ -231,10 +231,11 @@ components:
           type: string
     apiTable:
       type: object
-      required:
-        - name
-        - seatCount
-        - active
+      # Not using API Level Bean Validation on purpose.
+      #      required:
+      #        - name
+      #        - seatCount
+      #        - active
       properties:
         id:
           $ref: "#/components/schemas/id"

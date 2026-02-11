@@ -3,11 +3,18 @@ package de.cartok.quarkus.tutorial.backoffice.category;
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "category")
+@Table(name = "category", uniqueConstraints = {
+  @UniqueConstraint(columnNames = {"name"})
+})
 public class CategoryEntity extends BaseEntity {
+  @NotNull
   private String name;
+  
+  @NotNull
   private String description;
 
   public String getName() {

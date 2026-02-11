@@ -3,23 +3,23 @@ POST {{url}}/tables
 Content-Type: application/json
 
 {
-  "name": "Letzte Eckzzzddzze",
+  "name": "Letzte Ecke",
   "active": false
 }
 
 ### Modify
-PUT {{url}}/tables/2
+PUT {{url}}/tables/1
 Content-Type: application/json
 
 {
-  "name": "costa-rica"
+  "name": "Tresen"
 }
 
 ### Get all
 GET {{url}}/tables
 
 ### Get single
-GET {{url}}/tables/4
+GET {{url}}/tables/1
 
 ### Delete
 DELETE {{url}}/tables/1
