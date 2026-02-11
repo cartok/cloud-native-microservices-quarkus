@@ -2,8 +2,10 @@ package de.cartok.quarkus.tutorial.backoffice.category;
 
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-@Entity(name = "category")
+@Entity
+@Table(name = "category")
 public class CategoryEntity extends BaseEntity {
   private String name;
   private String description;

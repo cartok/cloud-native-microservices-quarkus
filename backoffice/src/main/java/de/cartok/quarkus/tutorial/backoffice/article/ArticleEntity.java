@@ -6,8 +6,10 @@ import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-@Entity(name = "article")
+@Entity()
+@Table(name = "article")
 public class ArticleEntity extends BaseEntity {
   private String name;
   private BigDecimal price;

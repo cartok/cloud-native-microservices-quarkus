@@ -2,8 +2,10 @@ package de.cartok.quarkus.tutorial.backoffice.table;
 
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-@Entity(name = "restaurant_table")
+@Entity()
+@Table(name = "restaurant_table")
 public class TableEntity extends BaseEntity {
   private String name;
   private Integer seatCount;
