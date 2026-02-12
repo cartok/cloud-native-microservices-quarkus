@@ -10,12 +10,12 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
-public class CategoriesResource implements CategoriesApi {
+public class CategoryResource implements CategoriesApi {
   private final CategoryMapper mapper;
   private final CategoryRepository categoryRepository;
 
   @Inject
-  public CategoriesResource(CategoryMapper mapper, CategoryRepository categoryRepository) {
+  public CategoryResource(CategoryMapper mapper, CategoryRepository categoryRepository) {
     this.mapper = mapper;
     this.categoryRepository = categoryRepository;
   }

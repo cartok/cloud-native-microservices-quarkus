@@ -12,14 +12,14 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
-public class ArticlesResource implements ArticlesApi {
+public class ArticleResource implements ArticlesApi {
 
   private final ArticleMapper mapper;
   private final ArticleRepository articleRepository;
   private final CategoryRepository categoryRepository;
 
   @Inject
-  public ArticlesResource(ArticleMapper mapper, ArticleRepository articleRepository, CategoryRepository categoryRepository) {
+  public ArticleResource(ArticleMapper mapper, ArticleRepository articleRepository, CategoryRepository categoryRepository) {
     this.mapper = mapper;
     this.articleRepository = articleRepository;
     this.categoryRepository = categoryRepository;

@@ -10,12 +10,12 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
-public class TablesResource implements TablesApi {
+public class TableResource implements TablesApi {
   private final TableMapper mapper;
   private final TableRepository tableRepository;
 
   @Inject
-  public TablesResource(TableMapper mapper, TableRepository tableRepository) {
+  public TableResource(TableMapper mapper, TableRepository tableRepository) {
     this.mapper = mapper;
     this.tableRepository = tableRepository;
   }
