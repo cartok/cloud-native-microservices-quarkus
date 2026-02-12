@@ -3,12 +3,13 @@ package de.cartok.quarkus.tutorial.backoffice;
 import java.util.List;
 import java.util.Optional;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
-public abstract class CrudService<Entity extends BaseEntity> {
+public abstract class CrudService<Entity extends PanacheEntity> {
   private final EntityManager entityManager;
 
   public CrudService(final EntityManager entityManager) {

@@ -7,30 +7,31 @@ import java.util.Optional;
 import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
 public class TablesResource implements TablesApi {
-  private final TablesService tablesService;
   private final TableMapper mapper;
 
   @Inject
-  public TablesResource(TablesService tablesService, TableMapper mapper) {
-    this.tablesService = tablesService;
+  public TablesResource(TableMapper mapper) {
     this.mapper = mapper;
   }
 
   @Override
+  @Transactional
   public Response deleteTable(Long tableId) {
-    final Optional<TableEntity> tableEntities = tablesService.deleteById(tableId);
-    if (tableEntities.isEmpty()) {
+    final boolean success = TableEntity.deleteById(tableId);
+    if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
     return Response.ok().build();
   }
 
   @Override
+  @Transactional
   public Response getTable(Long tableId) {
-    final Optional<TableEntity> tableEntity = tablesService.getById(tableId);
+    final Optional<TableEntity> tableEntity = TableEntity.findByIdOptional(tableId);
     if (tableEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     } else {
@@ -39,29 +40,31 @@ public class TablesResource implements TablesApi {
   }
 
   @Override
+  @Transactional
   public Response getTables() {
-    final List<TableEntity> tableEntities = tablesService.listAll();
+    final List<TableEntity> tableEntities = TableEntity.listAll();
     return Response.ok(tableEntities.stream().map(mapper::mapToDto).toList())
       .build();
   }
 
   @Override
+  @Transactional
   public Response postTable(ApiTable apiTable) {
     final TableEntity tableEntity = new TableEntity();
     mapper.mapToEntity(apiTable, tableEntity);
-    final TableEntity persitedTable = tablesService.persist(tableEntity);
-    return Response.created(URI.create("/tables/" + persitedTable.getId())).build();
+    tableEntity.persist();
+    return Response.created(URI.create("/tables/" + tableEntity.id)).build();
   }
 
   @Override
+  @Transactional
   public Response putTable(Long tableId, ApiTable apiTable) {
-    final Optional<TableEntity> existingTable = tablesService.getById(tableId);
+    final Optional<TableEntity> existingTable = TableEntity.findByIdOptional(tableId);
     if (existingTable.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
     final TableEntity tableEntity = existingTable.get();
     mapper.mapToEntity(apiTable, tableEntity);
-    tablesService.update(tableEntity);
     return Response.ok().build();
   }
 }

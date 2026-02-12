@@ -7,37 +7,39 @@ import java.util.Optional;
 import de.cartok.quarkus.tutorial.backoffice.api.CategoriesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiCategory;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
 public class CategoriesResource implements CategoriesApi {
-  private final CategoriesService categoriesService;
   private final CategoryMapper mapper;
 
   @Inject
-  public CategoriesResource(CategoriesService categoriesService, CategoryMapper mapper) {
-    this.categoriesService = categoriesService;
+  public CategoriesResource(CategoryMapper mapper) {
     this.mapper = mapper;
   }
 
   @Override
+  @Transactional
   public Response deleteCategory(Long categoryId) {
-    final Optional<CategoryEntity> category = categoriesService.deleteById(categoryId);
-    if (category.isEmpty()) {
+    final boolean success = CategoryEntity.deleteById(categoryId);
+    if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
     return Response.ok().build();
   }
 
   @Override
+  @Transactional
   public Response getCategories() {
-    final List<CategoryEntity> categories = categoriesService.listAll();
+    final List<CategoryEntity> categories = CategoryEntity.listAll();
     return Response.ok(categories.stream().map(mapper::mapToDto).toList())
       .build();
   }
 
   @Override
+  @Transactional
   public Response getCategory(Long categoryId) {
-    final Optional<CategoryEntity> category = categoriesService.getById(categoryId);
+    final Optional<CategoryEntity> category = CategoryEntity.findByIdOptional(categoryId);
     if (category.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -45,22 +47,23 @@ public class CategoriesResource implements CategoriesApi {
   }
 
   @Override
+  @Transactional
   public Response postCategory(ApiCategory apiCategory) {
     final CategoryEntity categoryEntity = new CategoryEntity();
     mapper.mapToEntity(apiCategory, categoryEntity);
-    final CategoryEntity persitedCategory = categoriesService.persist(categoryEntity);
-    return Response.created(URI.create("/categories/" + persitedCategory.getId())).build();
+    categoryEntity.persist();
+    return Response.created(URI.create("/categories/" + categoryEntity.id)).build();
   }
 
   @Override
+  @Transactional
   public Response putCategory(Long categoryId, ApiCategory apiCategory) {
-    final Optional<CategoryEntity> existingCategory = categoriesService.getById(categoryId);
+    final Optional<CategoryEntity> existingCategory = CategoryEntity.findByIdOptional(categoryId);
     if (existingCategory.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
     final CategoryEntity categoryEntity = existingCategory.get();
     mapper.mapToEntity(apiCategory, categoryEntity);
-    categoriesService.update(categoryEntity);
     return Response.ok().build();
   }
 }

@@ -9,10 +9,12 @@ import jakarta.ws.rs.ext.Provider;
 public class SmartbarExceptionMapper implements ExceptionMapper<Exception> {
   @Override
   public Response toResponse(Exception exception) {
+    // TODO: Keine messages, selbst wenn ich sie angebe, echt nicht hilfreich momentan.
     if (causedByConstraintViolation(exception)) {
       return Response.status(Response.Status.CONFLICT).build();
     }
-    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    // return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    throw new RuntimeException(exception);
   }
 
   private static boolean causedByConstraintViolation(Exception exception) {

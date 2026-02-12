@@ -4,10 +4,13 @@ Content-Type: application/json
 
 {
   "name": "Letzte Ecke",
+  "seatCount": 5,
   "active": false
 }
 
 ### Modify
+# TODO: Die put methods nutzen wie alles andere die hibernate validation beans der entities daher sind alle felder required, das sollte man ändern.
+#       Daher sollte man vlt. doch API level validation + DB (column) validation statt hibernate bean validation verwenden.
 PUT {{url}}/tables/1
 Content-Type: application/json
 

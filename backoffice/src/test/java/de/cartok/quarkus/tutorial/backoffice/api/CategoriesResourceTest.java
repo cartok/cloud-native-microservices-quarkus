@@ -9,22 +9,19 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
-import de.cartok.quarkus.tutorial.backoffice.category.CategoriesService;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
-import io.quarkus.test.InjectMock;
+import io.quarkus.panache.mock.PanacheMock;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class CategoriesResourceTest {
 
-  @InjectMock
-  CategoriesService categoriesServiceMock;
-
   @BeforeEach
   void setUp() {
-    final CategoryEntity category = new CategoryEntity();
-    category.setName("drinks!");
-    Mockito.when(categoriesServiceMock.listAll()).thenReturn(List.of(category));
+    PanacheMock.mock(CategoryEntity.class);
+    final CategoryEntity categoryEntity = new CategoryEntity();
+    categoryEntity.name = "drinks!";
+    Mockito.when(CategoryEntity.listAll()).thenReturn(List.of(categoryEntity));
   }
 
   @Test

@@ -8,6 +8,7 @@ Content-Type: application/json
 }
 
 ### Modify
+# TODO: Die Validation schlägt hier fehl, aber sollte nicht.
 PUT {{url}}/categories/1
 Content-Type: application/json
 

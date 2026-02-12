@@ -231,7 +231,7 @@ components:
           type: string
     apiTable:
       type: object
-      # Not using API Level Bean Validation on purpose.
+      # TODO: Should enhance validation later.
       #      required:
       #        - name
       #        - seatCount

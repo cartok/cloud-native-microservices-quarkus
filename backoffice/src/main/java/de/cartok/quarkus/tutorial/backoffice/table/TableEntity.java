@@ -1,6 +1,6 @@
 package de.cartok.quarkus.tutorial.backoffice.table;
 
-import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -13,38 +13,14 @@ import jakarta.validation.constraints.PositiveOrZero;
   @UniqueConstraint(columnNames = {"name"})
 })
 @Valid
-public class TableEntity extends BaseEntity {
+public class TableEntity extends PanacheEntity {
   @NotNull
-  private String name;
+  public String name;
 
   @NotNull
   @PositiveOrZero
-  private Integer seatCount;
+  public Integer seatCount;
 
   @NotNull
-  private Boolean active;
-
-  public Boolean getActive() {
-    return active;
-  }
-
-  public void setActive(Boolean active) {
-    this.active = active;
-  }
-
-  public Integer getSeatCount() {
-    return seatCount;
-  }
-
-  public void setSeatCount(Integer seatCount) {
-    this.seatCount = seatCount;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  public Boolean active;
 }
