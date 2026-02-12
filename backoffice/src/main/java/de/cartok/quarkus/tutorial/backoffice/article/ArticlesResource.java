@@ -7,6 +7,7 @@ import java.util.Optional;
 import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
+import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
@@ -14,16 +15,20 @@ import jakarta.ws.rs.core.Response;
 public class ArticlesResource implements ArticlesApi {
 
   private final ArticleMapper mapper;
+  private final ArticleRepository articleRepository;
+  private final CategoryRepository categoryRepository;
 
   @Inject
-  public ArticlesResource(ArticleMapper mapper) {
+  public ArticlesResource(ArticleMapper mapper, ArticleRepository articleRepository, CategoryRepository categoryRepository) {
     this.mapper = mapper;
+    this.articleRepository = articleRepository;
+    this.categoryRepository = categoryRepository;
   }
 
   @Override
   @Transactional
   public Response deleteArticle(Long articleId) {
-    final boolean success = ArticleEntity.deleteById(articleId);
+    final boolean success = articleRepository.deleteById(articleId);
     if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -33,7 +38,7 @@ public class ArticlesResource implements ArticlesApi {
   @Override
   @Transactional
   public Response getArticle(Long articleId) {
-    final Optional<ArticleEntity> optionalArticleEntity = ArticleEntity.findByIdOptional(articleId);
+    final Optional<ArticleEntity> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -43,14 +48,14 @@ public class ArticlesResource implements ArticlesApi {
   @Override
   @Transactional
   public Response getArticles() {
-    final List<ArticleEntity> articleEntities = ArticleEntity.listAll();
+    final List<ArticleEntity> articleEntities = articleRepository.listAll();
     return Response.ok(articleEntities.stream().map(mapper::mapToDto)).build();
   }
 
   @Override
   @Transactional
   public Response postArticle(Long xCategoryId, ApiArticle apiArticle) {
-    final Optional<CategoryEntity> category = CategoryEntity.findByIdOptional(xCategoryId);
+    final Optional<CategoryEntity> category = categoryRepository.findByIdOptional(xCategoryId);
     if (category.isEmpty()) {
       return Response.status(
         Response.Status.NOT_FOUND.getStatusCode(),
@@ -60,14 +65,14 @@ public class ArticlesResource implements ArticlesApi {
     final ArticleEntity articleEntity = new ArticleEntity();
     mapper.mapToEntity(apiArticle, articleEntity);
     articleEntity.category = category.get();
-    articleEntity.persist();
+    articleRepository.persist(articleEntity);
     return Response.created(URI.create("/articles/" + articleEntity.id)).build();
   }
 
   @Override
   @Transactional
   public Response putArticle(Long articleId, ApiArticle apiArticle) {
-    final Optional<ArticleEntity> optionalArticleEntity = ArticleEntity.findByIdOptional(articleId);
+    final Optional<ArticleEntity> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }

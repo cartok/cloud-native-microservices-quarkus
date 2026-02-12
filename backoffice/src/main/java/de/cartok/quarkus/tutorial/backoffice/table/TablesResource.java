@@ -12,16 +12,18 @@ import jakarta.ws.rs.core.Response;
 
 public class TablesResource implements TablesApi {
   private final TableMapper mapper;
+  private final TableRepository tableRepository;
 
   @Inject
-  public TablesResource(TableMapper mapper) {
+  public TablesResource(TableMapper mapper, TableRepository tableRepository) {
     this.mapper = mapper;
+    this.tableRepository = tableRepository;
   }
 
   @Override
   @Transactional
   public Response deleteTable(Long tableId) {
-    final boolean success = TableEntity.deleteById(tableId);
+    final boolean success = tableRepository.deleteById(tableId);
     if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -31,7 +33,7 @@ public class TablesResource implements TablesApi {
   @Override
   @Transactional
   public Response getTable(Long tableId) {
-    final Optional<TableEntity> tableEntity = TableEntity.findByIdOptional(tableId);
+    final Optional<TableEntity> tableEntity = tableRepository.findByIdOptional(tableId);
     if (tableEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     } else {
@@ -42,7 +44,7 @@ public class TablesResource implements TablesApi {
   @Override
   @Transactional
   public Response getTables() {
-    final List<TableEntity> tableEntities = TableEntity.listAll();
+    final List<TableEntity> tableEntities = tableRepository.listAll();
     return Response.ok(tableEntities.stream().map(mapper::mapToDto).toList())
       .build();
   }
@@ -52,14 +54,14 @@ public class TablesResource implements TablesApi {
   public Response postTable(ApiTable apiTable) {
     final TableEntity tableEntity = new TableEntity();
     mapper.mapToEntity(apiTable, tableEntity);
-    tableEntity.persist();
+    tableRepository.persist(tableEntity);
     return Response.created(URI.create("/tables/" + tableEntity.id)).build();
   }
 
   @Override
   @Transactional
   public Response putTable(Long tableId, ApiTable apiTable) {
-    final Optional<TableEntity> existingTable = TableEntity.findByIdOptional(tableId);
+    final Optional<TableEntity> existingTable = tableRepository.findByIdOptional(tableId);
     if (existingTable.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }

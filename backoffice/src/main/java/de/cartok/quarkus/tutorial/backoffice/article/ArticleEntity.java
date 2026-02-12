@@ -2,8 +2,8 @@ package de.cartok.quarkus.tutorial.backoffice.article;
 
 import java.math.BigDecimal;
 
+import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Positive;
 @Table(name = "article", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"name", "category_id"})
 })
-public class ArticleEntity extends PanacheEntity {
+public class ArticleEntity extends BaseEntity {
   @NotNull
   public String name;
 

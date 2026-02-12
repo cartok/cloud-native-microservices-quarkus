@@ -10,18 +10,21 @@ import org.mockito.Mockito;
 import java.util.List;
 
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
-import io.quarkus.panache.mock.PanacheMock;
+import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
+import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class CategoriesResourceTest {
 
+  @InjectMock
+  CategoryRepository categoryRepository;
+
   @BeforeEach
   void setUp() {
-    PanacheMock.mock(CategoryEntity.class);
     final CategoryEntity categoryEntity = new CategoryEntity();
     categoryEntity.name = "drinks!";
-    Mockito.when(CategoryEntity.listAll()).thenReturn(List.of(categoryEntity));
+    Mockito.when(categoryRepository.listAll()).thenReturn(List.of(categoryEntity));
   }
 
   @Test

@@ -12,16 +12,18 @@ import jakarta.ws.rs.core.Response;
 
 public class CategoriesResource implements CategoriesApi {
   private final CategoryMapper mapper;
+  private final CategoryRepository categoryRepository;
 
   @Inject
-  public CategoriesResource(CategoryMapper mapper) {
+  public CategoriesResource(CategoryMapper mapper, CategoryRepository categoryRepository) {
     this.mapper = mapper;
+    this.categoryRepository = categoryRepository;
   }
 
   @Override
   @Transactional
   public Response deleteCategory(Long categoryId) {
-    final boolean success = CategoryEntity.deleteById(categoryId);
+    final boolean success = categoryRepository.deleteById(categoryId);
     if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -31,7 +33,7 @@ public class CategoriesResource implements CategoriesApi {
   @Override
   @Transactional
   public Response getCategories() {
-    final List<CategoryEntity> categories = CategoryEntity.listAll();
+    final List<CategoryEntity> categories = categoryRepository.listAll();
     return Response.ok(categories.stream().map(mapper::mapToDto).toList())
       .build();
   }
@@ -39,7 +41,7 @@ public class CategoriesResource implements CategoriesApi {
   @Override
   @Transactional
   public Response getCategory(Long categoryId) {
-    final Optional<CategoryEntity> category = CategoryEntity.findByIdOptional(categoryId);
+    final Optional<CategoryEntity> category = categoryRepository.findByIdOptional(categoryId);
     if (category.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -51,14 +53,14 @@ public class CategoriesResource implements CategoriesApi {
   public Response postCategory(ApiCategory apiCategory) {
     final CategoryEntity categoryEntity = new CategoryEntity();
     mapper.mapToEntity(apiCategory, categoryEntity);
-    categoryEntity.persist();
+    categoryRepository.persist(categoryEntity);
     return Response.created(URI.create("/categories/" + categoryEntity.id)).build();
   }
 
   @Override
   @Transactional
   public Response putCategory(Long categoryId, ApiCategory apiCategory) {
-    final Optional<CategoryEntity> existingCategory = CategoryEntity.findByIdOptional(categoryId);
+    final Optional<CategoryEntity> existingCategory = categoryRepository.findByIdOptional(categoryId);
     if (existingCategory.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }

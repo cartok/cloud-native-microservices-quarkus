@@ -8,13 +8,5 @@ import jakarta.persistence.MappedSuperclass;
 public class BaseEntity {
   @Id
   @GeneratedValue
-  private Long id;
-
-  public Long getId() {
-    return id;
-  }
-
-  private void setId(Long id) {
-    this.id = id;
-  }
+  public Long id;
 }

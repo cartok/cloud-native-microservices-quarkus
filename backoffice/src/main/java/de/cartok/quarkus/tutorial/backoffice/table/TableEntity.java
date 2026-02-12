@@ -1,6 +1,6 @@
 package de.cartok.quarkus.tutorial.backoffice.table;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -13,7 +13,7 @@ import jakarta.validation.constraints.PositiveOrZero;
   @UniqueConstraint(columnNames = {"name"})
 })
 @Valid
-public class TableEntity extends PanacheEntity {
+public class TableEntity extends BaseEntity {
   @NotNull
   public String name;
 
