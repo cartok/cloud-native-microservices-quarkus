@@ -3,7 +3,6 @@ quarkus:
     continuous-testing: PAUSED
   datasource:
     devservices:
-      init-script-path: environments/dev/import.sql
       port: 52520
-      reuse: true
+      #      reuse: true
       show-logs: true

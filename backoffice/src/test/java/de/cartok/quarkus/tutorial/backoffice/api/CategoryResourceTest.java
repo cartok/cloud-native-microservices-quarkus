@@ -30,10 +30,12 @@ class CategoryResourceTest {
   @Test
   void getCategories() {
     final var response = given()
-      .when().get("/categories")
+      .when()
+      .get("/categories")
       .then()
       .statusCode(200)
-      .extract().response()
+      .extract()
+      .response()
       ;
     final var jsonPath = response.jsonPath();
 

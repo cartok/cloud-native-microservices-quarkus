@@ -24,6 +24,9 @@ Content-Type: application/json
 ### Get all
 GET {{url}}/articles
 
+### Get all by category id
+GET {{url}}/articles/1001
+
 ### Get single
 GET {{url}}/articles/1
 

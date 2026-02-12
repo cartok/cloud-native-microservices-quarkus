@@ -1,4 +1,0 @@
-quarkus:
-  datasource:
-    devservices:
-      init-script-path: environments/test/import.sql

@@ -7,7 +7,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "category", uniqueConstraints = {
+@Table(name = "category", schema = "smartbar", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"name"})
 })
 public class CategoryEntity extends BaseEntity {

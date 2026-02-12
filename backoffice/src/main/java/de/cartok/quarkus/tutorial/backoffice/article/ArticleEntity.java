@@ -4,10 +4,7 @@ import java.math.BigDecimal;
 
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -29,6 +26,7 @@ public class ArticleEntity extends BaseEntity {
   @NotNull
   public String pictureBase64;
 
-  @ManyToOne
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "category_id")
   public CategoryEntity category;
 }

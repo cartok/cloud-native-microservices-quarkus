@@ -3,6 +3,9 @@ quarkus:
     db-kind: postgresql
     devservices:
       db-name: smartbar
+    jdbc:
+      additional-jdbc-properties:
+        - currentSchema: smartbar
   hibernate-orm:
     database:
       default-schema: smartbar

@@ -1,7 +1,0 @@
--- No need to generate schema and tables cause Hibernate will do (at least in Dev Service mode).
--- Insertion should be similar to:
--- insert into smartbar.ArticleEntity_SEQ (name, price, description, picture)
--- values ("Fish and Chips",
---         1337,
---         "The best fish and chips on the island can be eaten at Breege Harbor.",
---         "<A base64 image string>")

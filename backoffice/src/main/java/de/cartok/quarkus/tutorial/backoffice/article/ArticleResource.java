@@ -10,6 +10,10 @@ import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 
 public class ArticleResource implements ArticlesApi {
@@ -55,8 +59,8 @@ public class ArticleResource implements ArticlesApi {
   @Override
   @Transactional
   public Response postArticle(Long xCategoryId, ApiArticle apiArticle) {
-    final Optional<CategoryEntity> category = categoryRepository.findByIdOptional(xCategoryId);
-    if (category.isEmpty()) {
+    final Optional<CategoryEntity> categoryEntity = categoryRepository.findByIdOptional(xCategoryId);
+    if (categoryEntity.isEmpty()) {
       return Response.status(
         Response.Status.NOT_FOUND.getStatusCode(),
         "Could not create article cause category with id=" + xCategoryId + " does not exist."
@@ -64,7 +68,7 @@ public class ArticleResource implements ArticlesApi {
     }
     final ArticleEntity articleEntity = new ArticleEntity();
     mapper.mapToEntity(apiArticle, articleEntity);
-    articleEntity.category = category.get();
+    articleEntity.category = categoryEntity.get();
     articleRepository.persist(articleEntity);
     return Response.created(URI.create("/articles/" + articleEntity.id)).build();
   }
@@ -79,5 +83,25 @@ public class ArticleResource implements ArticlesApi {
     final ArticleEntity articleEntity = optionalArticleEntity.get();
     mapper.mapToEntity(apiArticle, articleEntity);
     return Response.ok().build();
+  }
+
+  @GET
+  @Path("/articles/{categoryId}")
+  @Produces("application/json")
+  public Response listByCategory(@PathParam("categoryId") Long categoryId) {
+    final Optional<CategoryEntity> categoryEntity = categoryRepository.findByIdOptional(categoryId);
+    if (categoryEntity.isEmpty()) {
+      return Response.status(
+        Response.Status.NOT_FOUND.getStatusCode(),
+        "Could get articles for category with id=" + categoryId + " cause category does not exist."
+      ).build();
+    }
+    final List<ApiArticle> articles = articleRepository
+      .listByCategory(categoryEntity.get())
+      .stream()
+      .map(mapper::mapToDto)
+      .toList()
+      ;
+    return Response.ok(articles).build();
   }
 }
