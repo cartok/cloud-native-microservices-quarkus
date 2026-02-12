@@ -1,0 +1,12 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    devservices:
+      db-name: smartbar
+  hibernate-orm:
+    database:
+      default-schema: smartbar
+    log:
+      sql: true
+    schema-management:
+      create-schemas: true
