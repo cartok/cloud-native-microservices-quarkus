@@ -8,6 +8,7 @@ import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -16,6 +17,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 
+@Path("articles") // Temporarily added this path. Should come from schema or schema generated code should be abstract class not interface.
+@ApplicationScoped
 public class ArticleResource implements ArticlesApi {
 
   private final ArticleMapper mapper;
@@ -86,7 +89,7 @@ public class ArticleResource implements ArticlesApi {
   }
 
   @GET
-  @Path("/articles/{categoryId}")
+  @Path("/category/{categoryId}")
   @Produces("application/json")
   public Response listByCategory(@PathParam("categoryId") Long categoryId) {
     final Optional<CategoryEntity> categoryEntity = categoryRepository.findByIdOptional(categoryId);

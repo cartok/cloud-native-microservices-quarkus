@@ -27,6 +27,6 @@ public class ArticleEntity extends BaseEntity {
   public String pictureBase64;
 
   @ManyToOne(optional = false)
-  @JoinColumn(name = "category_id")
+  @JoinColumn(name = "category_id", nullable = false)
   public CategoryEntity category;
 }

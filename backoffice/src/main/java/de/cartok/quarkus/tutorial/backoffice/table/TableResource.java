@@ -6,10 +6,12 @@ import java.util.Optional;
 
 import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
+@ApplicationScoped
 public class TableResource implements TablesApi {
   private final TableMapper mapper;
   private final TableRepository tableRepository;

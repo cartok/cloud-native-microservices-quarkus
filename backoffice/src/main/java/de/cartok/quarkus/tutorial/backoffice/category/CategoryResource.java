@@ -6,10 +6,12 @@ import java.util.Optional;
 
 import de.cartok.quarkus.tutorial.backoffice.api.CategoriesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiCategory;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
+@ApplicationScoped
 public class CategoryResource implements CategoriesApi {
   private final CategoryMapper mapper;
   private final CategoryRepository categoryRepository;
