@@ -1,8 +1,5 @@
 package de.cartok.quarkus.tutorial.backoffice.article;
 
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +10,8 @@ import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
