@@ -1,5 +1,8 @@
 package de.cartok.quarkus.tutorial.backoffice.article;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +22,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("articles") // Temporarily added this path. Should come from schema or schema generated code should be abstract class not interface.
 @ApplicationScoped
+@NamedQueries({
+  @NamedQuery(name = "Article.byCategory", query = "from ArticleEntity where category = ?1 order by price desc")
+})
 public class ArticleResource implements ArticlesApi {
 
   private final ArticleMapper mapper;
