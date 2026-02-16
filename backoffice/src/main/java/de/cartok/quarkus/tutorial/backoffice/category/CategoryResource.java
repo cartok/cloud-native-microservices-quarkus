@@ -35,7 +35,7 @@ public class CategoryResource implements CategoriesApi {
   @Override
   @Transactional
   public Response getCategories() {
-    final List<CategoryEntity> categories = categoryRepository.listAll();
+    final List<Category> categories = categoryRepository.listAll();
     return Response.ok(categories.stream().map(mapper::mapToDto).toList())
       .build();
   }
@@ -43,7 +43,7 @@ public class CategoryResource implements CategoriesApi {
   @Override
   @Transactional
   public Response getCategory(Long categoryId) {
-    final Optional<CategoryEntity> category = categoryRepository.findByIdOptional(categoryId);
+    final Optional<Category> category = categoryRepository.findByIdOptional(categoryId);
     if (category.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -53,21 +53,21 @@ public class CategoryResource implements CategoriesApi {
   @Override
   @Transactional
   public Response postCategory(ApiCategory apiCategory) {
-    final CategoryEntity categoryEntity = new CategoryEntity();
-    mapper.mapToEntity(apiCategory, categoryEntity);
-    categoryRepository.persist(categoryEntity);
-    return Response.created(URI.create("/categories/" + categoryEntity.id)).build();
+    final Category category = new Category();
+    mapper.mapToEntity(apiCategory, category);
+    categoryRepository.persist(category);
+    return Response.created(URI.create("/categories/" + category.id)).build();
   }
 
   @Override
   @Transactional
   public Response putCategory(Long categoryId, ApiCategory apiCategory) {
-    final Optional<CategoryEntity> existingCategory = categoryRepository.findByIdOptional(categoryId);
+    final Optional<Category> existingCategory = categoryRepository.findByIdOptional(categoryId);
     if (existingCategory.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
-    final CategoryEntity categoryEntity = existingCategory.get();
-    mapper.mapToEntity(apiCategory, categoryEntity);
+    final Category category = existingCategory.get();
+    mapper.mapToEntity(apiCategory, category);
     return Response.ok().build();
   }
 }

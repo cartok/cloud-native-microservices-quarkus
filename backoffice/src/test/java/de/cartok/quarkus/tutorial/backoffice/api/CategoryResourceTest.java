@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
-import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
+import de.cartok.quarkus.tutorial.backoffice.category.Category;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
@@ -22,9 +22,9 @@ class CategoryResourceTest {
 
   @BeforeEach
   void setUp() {
-    final CategoryEntity categoryEntity = new CategoryEntity();
-    categoryEntity.name = "drinks!";
-    Mockito.when(categoryRepository.listAll()).thenReturn(List.of(categoryEntity));
+    final Category category = new Category();
+    category.name = "drinks!";
+    Mockito.when(categoryRepository.listAll()).thenReturn(List.of(category));
   }
 
   @Test

@@ -12,8 +12,8 @@ public interface ArticleMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "category", ignore = true)
   @Mapping(target = "pictureBase64", source = "picture")
-  void mapToEntity(ApiArticle apiObject, @MappingTarget ArticleEntity entityObject);
+  void mapToEntity(ApiArticle apiObject, @MappingTarget Article entityObject);
 
   @Mapping(target = "picture", source = "pictureBase64")
-  ApiArticle mapToDto(ArticleEntity entityObject);
+  ApiArticle mapToDto(Article entityObject);
 }

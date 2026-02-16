@@ -3,7 +3,7 @@ package de.cartok.quarkus.tutorial.backoffice.article;
 import java.math.BigDecimal;
 
 import de.cartok.quarkus.tutorial.backoffice.BaseEntity;
-import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
+import de.cartok.quarkus.tutorial.backoffice.category.Category;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Positive;
 @Table(name = "article", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"name", "category_id"})
 })
-public class ArticleEntity extends BaseEntity {
+public class Article extends BaseEntity {
   @NotNull
   public String name;
 
@@ -28,5 +28,5 @@ public class ArticleEntity extends BaseEntity {
 
   @ManyToOne(optional = false)
   @JoinColumn(name = "category_id", nullable = false)
-  public CategoryEntity category;
+  public Category category;
 }

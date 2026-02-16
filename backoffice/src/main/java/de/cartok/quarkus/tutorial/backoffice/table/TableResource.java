@@ -35,7 +35,7 @@ public class TableResource implements TablesApi {
   @Override
   @Transactional
   public Response getTable(Long tableId) {
-    final Optional<TableEntity> tableEntity = tableRepository.findByIdOptional(tableId);
+    final Optional<Table> tableEntity = tableRepository.findByIdOptional(tableId);
     if (tableEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     } else {
@@ -46,7 +46,7 @@ public class TableResource implements TablesApi {
   @Override
   @Transactional
   public Response getTables() {
-    final List<TableEntity> tableEntities = tableRepository.listAll();
+    final List<Table> tableEntities = tableRepository.listAll();
     return Response.ok(tableEntities.stream().map(mapper::mapToDto).toList())
       .build();
   }
@@ -54,21 +54,21 @@ public class TableResource implements TablesApi {
   @Override
   @Transactional
   public Response postTable(ApiTable apiTable) {
-    final TableEntity tableEntity = new TableEntity();
-    mapper.mapToEntity(apiTable, tableEntity);
-    tableRepository.persist(tableEntity);
-    return Response.created(URI.create("/tables/" + tableEntity.id)).build();
+    final Table table = new Table();
+    mapper.mapToEntity(apiTable, table);
+    tableRepository.persist(table);
+    return Response.created(URI.create("/tables/" + table.id)).build();
   }
 
   @Override
   @Transactional
   public Response putTable(Long tableId, ApiTable apiTable) {
-    final Optional<TableEntity> existingTable = tableRepository.findByIdOptional(tableId);
+    final Optional<Table> existingTable = tableRepository.findByIdOptional(tableId);
     if (existingTable.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
-    final TableEntity tableEntity = existingTable.get();
-    mapper.mapToEntity(apiTable, tableEntity);
+    final Table table = existingTable.get();
+    mapper.mapToEntity(apiTable, table);
     return Response.ok().build();
   }
 }

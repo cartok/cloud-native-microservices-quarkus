@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
-import de.cartok.quarkus.tutorial.backoffice.category.CategoryEntity;
+import de.cartok.quarkus.tutorial.backoffice.category.Category;
 import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -22,7 +22,7 @@ import jakarta.ws.rs.core.Response;
 @Path("articles") // Temporarily added this path. Should come from schema or schema generated code should be abstract class not interface.
 @ApplicationScoped
 @NamedQueries({
-  @NamedQuery(name = "Article.byCategory", query = "from ArticleEntity where category = ?1 order by price desc")
+  @NamedQuery(name = "Article.byCategory", query = "from Article where category = ?1 order by price desc")
 })
 public class ArticleResource implements ArticlesApi {
 
@@ -50,7 +50,7 @@ public class ArticleResource implements ArticlesApi {
   @Override
   @Transactional
   public Response getArticle(Long articleId) {
-    final Optional<ArticleEntity> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
+    final Optional<Article> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -60,36 +60,36 @@ public class ArticleResource implements ArticlesApi {
   @Override
   @Transactional
   public Response getArticles() {
-    final List<ArticleEntity> articleEntities = articleRepository.listAll();
+    final List<Article> articleEntities = articleRepository.listAll();
     return Response.ok(articleEntities.stream().map(mapper::mapToDto)).build();
   }
 
   @Override
   @Transactional
   public Response postArticle(Long xCategoryId, ApiArticle apiArticle) {
-    final Optional<CategoryEntity> categoryEntity = categoryRepository.findByIdOptional(xCategoryId);
+    final Optional<Category> categoryEntity = categoryRepository.findByIdOptional(xCategoryId);
     if (categoryEntity.isEmpty()) {
       return Response.status(
         Response.Status.NOT_FOUND.getStatusCode(),
         "Could not create article cause category with id=" + xCategoryId + " does not exist."
       ).build();
     }
-    final ArticleEntity articleEntity = new ArticleEntity();
-    mapper.mapToEntity(apiArticle, articleEntity);
-    articleEntity.category = categoryEntity.get();
-    articleRepository.persist(articleEntity);
-    return Response.created(URI.create("/articles/" + articleEntity.id)).build();
+    final Article article = new Article();
+    mapper.mapToEntity(apiArticle, article);
+    article.category = categoryEntity.get();
+    articleRepository.persist(article);
+    return Response.created(URI.create("/articles/" + article.id)).build();
   }
 
   @Override
   @Transactional
   public Response putArticle(Long articleId, ApiArticle apiArticle) {
-    final Optional<ArticleEntity> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
+    final Optional<Article> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
-    final ArticleEntity articleEntity = optionalArticleEntity.get();
-    mapper.mapToEntity(apiArticle, articleEntity);
+    final Article article = optionalArticleEntity.get();
+    mapper.mapToEntity(apiArticle, article);
     return Response.ok().build();
   }
 
@@ -97,7 +97,7 @@ public class ArticleResource implements ArticlesApi {
   @Path("/category/{categoryId}")
   @Produces("application/json")
   public Response listByCategory(@PathParam("categoryId") Long categoryId) {
-    final Optional<CategoryEntity> categoryEntity = categoryRepository.findByIdOptional(categoryId);
+    final Optional<Category> categoryEntity = categoryRepository.findByIdOptional(categoryId);
     if (categoryEntity.isEmpty()) {
       return Response.status(
         Response.Status.NOT_FOUND.getStatusCode(),

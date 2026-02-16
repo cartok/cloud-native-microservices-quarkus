@@ -10,7 +10,7 @@ import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
 @Mapper(componentModel = MappingConstants.ComponentModel.JAKARTA_CDI)
 public interface TableMapper {
   @Mapping(target = "id", ignore = true)
-  void mapToEntity(ApiTable apiObject, @MappingTarget TableEntity entityObject);
+  void mapToEntity(ApiTable apiObject, @MappingTarget Table entityObject);
 
-  ApiTable mapToDto(TableEntity entityObject);
+  ApiTable mapToDto(Table entityObject);
 }

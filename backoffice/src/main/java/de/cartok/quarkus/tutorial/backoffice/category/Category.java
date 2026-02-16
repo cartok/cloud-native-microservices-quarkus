@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "category", schema = "smartbar", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"name"})
 })
-public class CategoryEntity extends BaseEntity {
+public class Category extends BaseEntity {
   // TODO: Felder sollten für put operationen aber optional sein!
   @NotNull
   public String name;

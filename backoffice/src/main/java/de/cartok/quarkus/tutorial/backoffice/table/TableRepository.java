@@ -4,5 +4,5 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class TableRepository implements PanacheRepository<TableEntity> {
+public class TableRepository implements PanacheRepository<Table> {
 }
