@@ -1,7 +1,7 @@
 quarkus:
   datasource:
-    jdbc:
-      url: should-come-from-env
+    reactive:
+      url: vertx-reactive:postgresql://should-come-from-env
     password: should-come-from-env
     username: should-come-from-env
   hibernate-orm:

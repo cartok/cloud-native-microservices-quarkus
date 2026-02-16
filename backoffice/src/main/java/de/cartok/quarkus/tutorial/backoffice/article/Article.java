@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import de.cartok.quarkus.tutorial.backoffice.category.Category;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import io.smallrye.mutiny.Uni;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -31,7 +32,7 @@ public class Article extends PanacheEntity {
   @JoinColumn(name = "category_id", nullable = false)
   public Category category;
 
-  public static List<Article> listByCategory(Category category) {
+  public static Uni<List<Article>> listByCategory(Category category) {
     //    return find("category", Sort.by("price", Sort.Direction.Descending), categoryEntity)
     //      .page(Page.ofSize(3))
     //      .list()

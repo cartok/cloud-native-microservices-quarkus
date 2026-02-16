@@ -4,5 +4,5 @@ quarkus:
   datasource:
     devservices:
       port: 52520
-      #      reuse: true
+      reuse: true
       show-logs: true
