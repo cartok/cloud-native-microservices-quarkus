@@ -7,7 +7,6 @@ import java.util.Optional;
 import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
 import de.cartok.quarkus.tutorial.backoffice.category.Category;
-import de.cartok.quarkus.tutorial.backoffice.category.CategoryRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.NamedQueries;
@@ -27,20 +26,16 @@ import jakarta.ws.rs.core.Response;
 public class ArticleResource implements ArticlesApi {
 
   private final ArticleMapper mapper;
-  private final ArticleRepository articleRepository;
-  private final CategoryRepository categoryRepository;
 
   @Inject
-  public ArticleResource(ArticleMapper mapper, ArticleRepository articleRepository, CategoryRepository categoryRepository) {
+  public ArticleResource(ArticleMapper mapper) {
     this.mapper = mapper;
-    this.articleRepository = articleRepository;
-    this.categoryRepository = categoryRepository;
   }
 
   @Override
   @Transactional
   public Response deleteArticle(Long articleId) {
-    final boolean success = articleRepository.deleteById(articleId);
+    final boolean success = Article.deleteById(articleId);
     if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -50,7 +45,7 @@ public class ArticleResource implements ArticlesApi {
   @Override
   @Transactional
   public Response getArticle(Long articleId) {
-    final Optional<Article> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
+    final Optional<Article> optionalArticleEntity = Article.findByIdOptional(articleId);
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -60,14 +55,14 @@ public class ArticleResource implements ArticlesApi {
   @Override
   @Transactional
   public Response getArticles() {
-    final List<Article> articleEntities = articleRepository.listAll();
+    final List<Article> articleEntities = Article.listAll();
     return Response.ok(articleEntities.stream().map(mapper::mapToDto)).build();
   }
 
   @Override
   @Transactional
   public Response postArticle(Long xCategoryId, ApiArticle apiArticle) {
-    final Optional<Category> categoryEntity = categoryRepository.findByIdOptional(xCategoryId);
+    final Optional<Category> categoryEntity = Category.findByIdOptional(xCategoryId);
     if (categoryEntity.isEmpty()) {
       return Response.status(
         Response.Status.NOT_FOUND.getStatusCode(),
@@ -77,14 +72,14 @@ public class ArticleResource implements ArticlesApi {
     final Article article = new Article();
     mapper.mapToEntity(apiArticle, article);
     article.category = categoryEntity.get();
-    articleRepository.persist(article);
+    article.persist();
     return Response.created(URI.create("/articles/" + article.id)).build();
   }
 
   @Override
   @Transactional
   public Response putArticle(Long articleId, ApiArticle apiArticle) {
-    final Optional<Article> optionalArticleEntity = articleRepository.findByIdOptional(articleId);
+    final Optional<Article> optionalArticleEntity = Article.findByIdOptional(articleId);
     if (optionalArticleEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -97,14 +92,14 @@ public class ArticleResource implements ArticlesApi {
   @Path("/category/{categoryId}")
   @Produces("application/json")
   public Response listByCategory(@PathParam("categoryId") Long categoryId) {
-    final Optional<Category> categoryEntity = categoryRepository.findByIdOptional(categoryId);
+    final Optional<Category> categoryEntity = Category.findByIdOptional(categoryId);
     if (categoryEntity.isEmpty()) {
       return Response.status(
         Response.Status.NOT_FOUND.getStatusCode(),
         "Could get articles for category with id=" + categoryId + " cause category does not exist."
       ).build();
     }
-    final List<ApiArticle> articles = articleRepository
+    final List<ApiArticle> articles = Article
       .listByCategory(categoryEntity.get())
       .stream()
       .map(mapper::mapToDto)

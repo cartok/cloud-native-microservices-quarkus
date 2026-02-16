@@ -14,18 +14,16 @@ import jakarta.ws.rs.core.Response;
 @ApplicationScoped
 public class TableResource implements TablesApi {
   private final TableMapper mapper;
-  private final TableRepository tableRepository;
 
   @Inject
-  public TableResource(TableMapper mapper, TableRepository tableRepository) {
+  public TableResource(TableMapper mapper) {
     this.mapper = mapper;
-    this.tableRepository = tableRepository;
   }
 
   @Override
   @Transactional
   public Response deleteTable(Long tableId) {
-    final boolean success = tableRepository.deleteById(tableId);
+    final boolean success = Table.deleteById(tableId);
     if (!success) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -35,7 +33,7 @@ public class TableResource implements TablesApi {
   @Override
   @Transactional
   public Response getTable(Long tableId) {
-    final Optional<Table> tableEntity = tableRepository.findByIdOptional(tableId);
+    final Optional<Table> tableEntity = Table.findByIdOptional(tableId);
     if (tableEntity.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     } else {
@@ -46,7 +44,7 @@ public class TableResource implements TablesApi {
   @Override
   @Transactional
   public Response getTables() {
-    final List<Table> tableEntities = tableRepository.listAll();
+    final List<Table> tableEntities = Table.listAll();
     return Response.ok(tableEntities.stream().map(mapper::mapToDto).toList())
       .build();
   }
@@ -56,14 +54,14 @@ public class TableResource implements TablesApi {
   public Response postTable(ApiTable apiTable) {
     final Table table = new Table();
     mapper.mapToEntity(apiTable, table);
-    tableRepository.persist(table);
+    table.persist();
     return Response.created(URI.create("/tables/" + table.id)).build();
   }
 
   @Override
   @Transactional
   public Response putTable(Long tableId, ApiTable apiTable) {
-    final Optional<Table> existingTable = tableRepository.findByIdOptional(tableId);
+    final Optional<Table> existingTable = Table.findByIdOptional(tableId);
     if (existingTable.isEmpty()) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
