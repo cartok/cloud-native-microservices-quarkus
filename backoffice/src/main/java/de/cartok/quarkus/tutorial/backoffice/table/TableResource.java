@@ -5,6 +5,7 @@ import java.util.concurrent.CompletionStage;
 
 import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
+import jakarta.annotation.security.DenyAll;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -28,6 +29,7 @@ public class TableResource implements TablesApi {
   }
 
   @Override
+  @DenyAll
   public CompletionStage<List<ApiTable>> getTables() {
     return service.getTables().subscribeAsCompletionStage();
   }
