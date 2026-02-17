@@ -8,16 +8,4 @@ quarkus:
       show-logs: true
   http:
     auth:
-      # TODO: Irgendwie funktioniert was nicht. 404 auf der index page.
-      #  mit roles wie in den docs gab es da problem glaube nicht: https://quarkus.io/guides/security-jpa
       basic: true
-  security:
-    users:
-      embedded:
-        enabled: true
-      users:
-        bob: bob
-        alice: alice
-      roles:
-        bob: admin
-        alice: user
