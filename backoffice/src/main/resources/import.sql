@@ -46,7 +46,9 @@ insert into smartbar.sbo_table
 values (true, 6, 3004, 'Barcelona');
 
 -- Users
-insert into smartbar.sbo_user
-values (0, 'bob', '$6$pKYInpelJxwg8fiC$nk2wrFHyJaDEO8t53ObpjnxhB0HrjNpi64tqF4T7IStNMYKi.a9QogdgNN8bBJdvPwFGb9zIb5TPyjqs9879n0', 'admin,user');
-insert into smartbar.sbo_user
-values (1, 'alice', '$6$pKYInpelJxwg8fiC$nk2wrFHyJaDEO8t53ObpjnxhB0HrjNpi64tqF4T7IStNMYKi.a9QogdgNN8bBJdvPwFGb9zIb5TPyjqs9879n0', 'admin,user');
+-- # create password:        mkpasswd -m bcrypt foo
+-- # create auth header:     echo "Authorization: Basic $(printf 'bob:foo' | base64)"
+insert into smartbar.sbo_user (id, username, password, role)
+values (0, 'bob', '$2a$10$AjVJI3bszYrkOdNVcb6dxeEP0ks4H.RnShcncue8p34gjLx5FCi1W', 'admin,user');
+insert into smartbar.sbo_user (id, username, password, role)
+values (1, 'alice', '$2a$10$AjVJI3bszYrkOdNVcb6dxeEP0ks4H.RnShcncue8p34gjLx5FCi1W', 'user');

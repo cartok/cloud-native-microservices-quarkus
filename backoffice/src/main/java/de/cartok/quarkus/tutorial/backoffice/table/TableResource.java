@@ -5,10 +5,11 @@ import java.util.concurrent.CompletionStage;
 
 import de.cartok.quarkus.tutorial.backoffice.api.TablesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiTable;
-import jakarta.annotation.security.DenyAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+@RolesAllowed({"admin", "user"})
 @ApplicationScoped
 public class TableResource implements TablesApi {
   private final TableService service;
@@ -29,7 +30,6 @@ public class TableResource implements TablesApi {
   }
 
   @Override
-  @DenyAll
   public CompletionStage<List<ApiTable>> getTables() {
     return service.getTables().subscribeAsCompletionStage();
   }
