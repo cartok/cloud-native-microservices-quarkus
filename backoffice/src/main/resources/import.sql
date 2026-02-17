@@ -34,13 +34,13 @@ insert into smartbar.article
 values (2.00, 1002, 2009, 'Water', 'Water', 'ABC');
 
 -- Tables
-insert into smartbar.restaurant_table
+insert into smartbar.sbo_table
 values (true, 4, 3000, 'Oslo');
-insert into smartbar.restaurant_table
+insert into smartbar.sbo_table
 values (true, 8, 3001, 'Stockholm');
-insert into smartbar.restaurant_table
+insert into smartbar.sbo_table
 values (true, 12, 3002, 'New York');
-insert into smartbar.restaurant_table
+insert into smartbar.sbo_table
 values (false, 4, 3003, 'Munich');
-insert into smartbar.restaurant_table
+insert into smartbar.sbo_table
 values (true, 6, 3004, 'Barcelona');

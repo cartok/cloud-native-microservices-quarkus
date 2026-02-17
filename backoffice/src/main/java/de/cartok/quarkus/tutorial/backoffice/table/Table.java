@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity()
-@jakarta.persistence.Table(name = "restaurant_table", uniqueConstraints = {
+@jakarta.persistence.Table(name = "sbo_table", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"name"})
 })
 @Valid
