@@ -46,8 +46,6 @@ insert into smartbar.sbo_table
 values (true, 6, 3004, 'Barcelona');
 
 -- Users
--- # create password:        mkpasswd -m bcrypt foo
--- # create auth header:     echo "Authorization: Basic $(printf 'bob:foo' | base64)"
 insert into smartbar.sbo_user (id, username, password, role)
 values (0, 'bob', '$2a$10$AjVJI3bszYrkOdNVcb6dxeEP0ks4H.RnShcncue8p34gjLx5FCi1W', 'admin,user');
 insert into smartbar.sbo_user (id, username, password, role)

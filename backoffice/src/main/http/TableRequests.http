@@ -19,8 +19,8 @@ Content-Type: application/json
 }
 
 ### Get all
+# @no-redirect
 GET {{url}}/tables
-Authorization: Basic Ym9iOmZvbw==
 
 ### Get single
 GET {{url}}/tables/1

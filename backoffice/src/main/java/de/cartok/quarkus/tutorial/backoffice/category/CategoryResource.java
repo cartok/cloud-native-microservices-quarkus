@@ -5,10 +5,12 @@ import java.util.concurrent.CompletionStage;
 
 import de.cartok.quarkus.tutorial.backoffice.api.CategoriesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiCategory;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
+@RolesAllowed({"admin", "user"})
 public class CategoryResource implements CategoriesApi {
 
   private final CategoryService service;

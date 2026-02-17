@@ -8,4 +8,5 @@ quarkus:
       show-logs: true
   http:
     auth:
-      basic: true
+      form:
+        enabled: true

@@ -5,6 +5,7 @@ import java.util.concurrent.CompletionStage;
 
 import de.cartok.quarkus.tutorial.backoffice.api.ArticlesApi;
 import de.cartok.quarkus.tutorial.backoffice.api.model.ApiArticle;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.Produces;
 
 @Path("articles") // Temporarily added this path. Should come from schema or schema generated code should be abstract class not interface. It's only there for the manually added method `listByCategory`.
 @ApplicationScoped
+@RolesAllowed({"admin", "user"})
 public class ArticleResource implements ArticlesApi {
 
   private final ArticleService service;
