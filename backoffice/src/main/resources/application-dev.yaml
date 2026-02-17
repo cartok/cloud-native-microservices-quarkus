@@ -6,3 +6,6 @@ quarkus:
       port: 52520
       reuse: true
       show-logs: true
+  http:
+    auth:
+      basic: true
