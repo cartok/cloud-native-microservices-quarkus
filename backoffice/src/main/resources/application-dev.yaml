@@ -10,3 +10,5 @@ quarkus:
     auth:
       form:
         enabled: true
+        login-page: ""
+        landing-page: ""

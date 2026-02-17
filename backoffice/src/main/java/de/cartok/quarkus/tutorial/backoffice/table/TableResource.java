@@ -10,7 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
-@RolesAllowed({"admin", "user"})
+@RolesAllowed({"admin"})
 public class TableResource implements TablesApi {
   private final TableService service;
 
