@@ -20,17 +20,68 @@ When I wanted to try out the REST resources with the Hibernate + Panache extensi
     echo "Authorization: Basic $(printf 'bob:foo' | base64)"
     ```
 
+### Self-signed SSL
+
+#### Issues
+
+1. Vermute Probleme mit Zertifikaten die CN nicht auf eine Addresse und auch kein SAN gesetzt haben.
+
+- Curl failed
+  - mit `--cacert`
+  - mit `-k`?
+- IDEA HTTP Client failed ebenfalls und man bekommt keinen Dialog um das Zertifikat zu erlauben.
+
+2. Der IDEA HTTP Client Bug: Die Base URL wird reused, wodurch ich nicht abwechselnd http & https eines Endpoints testen kann.
+
+3. Die `@TestSecurity` Annotation
+
+- Wenn ich darüber die security disable werden `user` und `role` auch nicht validiert, es macht also keinen Sinn die zu setzen.
+
+<pre>
+Truststore
+├─ Certificate Authority
+│ ├─ Certificate A
+│ ├─ Certificate B
+│ └─ Certificate C
+└─ Certificate X
+</pre>
+
+```zsh
+# Create keystore incl. certificate
+keytool -genkeypair \
+  -keyalg Ed25519 \
+  -storetype PKCS12 \
+  -validity 3650 \
+  -dname "CN=Ezreal, OU=Research, O=Piltover Weapons, L=Piltover, ST=Runeterra, C=PT" \
+  -ext SAN=DNS:localhost,DNS:127.0.0.1 \
+  -keypass changeit \
+  -storepass changeit \
+  -keystore keystore.p12
+
+# Export certificate from keystore
+keytool -exportcert \
+  -keystore keystore.p12 \
+  -storetype PKCS12 \
+  -storepass changeit \
+  -rfc \
+  -file certificate.crt
+```
+
 ## Java
 
 ### Generic Syntax & PECS = Producer Extends, Consumer Super
 
+```
 List<? extends Number> numbers = List.of(1, 2.0);
 Number n = numbers.get(0); // okay
 numbers.add(3); // ❌ nicht erlaubt
+```
 
+```
 List<? super Integer> ints = new ArrayList<Number>();
 ints.add(42); // okay
 Number o = ints.get(0); // nur Object sicher
+```
 
 ### Java Persistence API (JPA) and Java Database Connectivity (JDBC)
 

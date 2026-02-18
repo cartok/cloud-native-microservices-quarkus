@@ -14,9 +14,3 @@ quarkus:
       sql: true
     schema-management:
       create-schemas: true
-  http:
-    insecure-requests: redirect
-    ssl:
-      certificate:
-        key-store-file: keystore.p12
-        key-store-file-type: PKCS12

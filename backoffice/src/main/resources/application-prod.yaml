@@ -7,14 +7,14 @@ quarkus:
   hibernate-orm:
     physical-naming-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
   http:
+    insecure-requests: DISABLED
+    ssl:
+      certificate:
+        key-store-file: keystore.p12
+        key-store-file-type: PKCS12
+        reload-period: 1h
     enable-compression: true
     compressors:
       - deflate
       - gzip
       - br
-    insecure-requests: disabled
-    ssl:
-      certificate:
-        files: /path/to/certificate
-        key-files: /path/to/key
-        reload-period: 1h

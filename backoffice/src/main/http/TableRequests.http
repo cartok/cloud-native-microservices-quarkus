@@ -9,8 +9,6 @@ Content-Type: application/json
 }
 
 ### Modify
-# TODO: Die put methods nutzen wie alles andere die hibernate validation beans der entities daher sind alle felder required, das sollte man ändern.
-#       Daher sollte man vlt. doch API level validation + DB (column) validation statt hibernate bean validation verwenden.
 PUT {{url}}/tables/1
 Content-Type: application/json
 
@@ -19,8 +17,8 @@ Content-Type: application/json
 }
 
 ### Get all
-# @no-redirect
 GET {{url}}/tables
+#Authorization: Basic Ym9iOmZvbw==
 
 ### Get single
 GET {{url}}/tables/1

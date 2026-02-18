@@ -7,7 +7,13 @@ quarkus:
       reuse: true
       show-logs: true
   http:
+    insecure-requests: DISABLED
+    ssl:
+      certificate:
+        key-store-file: keystore.p12
+        key-store-file-type: PKCS12
     auth:
+      basic: true
       form:
         enabled: true
         login-page: ""
