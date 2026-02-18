@@ -20,9 +20,9 @@ When I wanted to try out the REST resources with the Hibernate + Panache extensi
     echo "Authorization: Basic $(printf 'bob:foo' | base64)"
     ```
 
-### Self-signed SSL
+### Lesson 7.4 about combining different auth mechanisms and MTLS
 
-#### Issues
+#### Faced issues
 
 1. CURL failed wenn man beim Zertifikat CN nicht auf eine Addresse (localhost oder 127.0.0.1), oder stattdessen SAN nicht gesetzt hat.
 
@@ -35,7 +35,7 @@ When I wanted to try out the REST resources with the Hibernate + Panache extensi
 
 - Wenn ich darüber die security disable werden `user` und `role` auch nicht validiert, es macht also keinen Sinn die zu setzen.
 
-### Documentation
+#### Documentation
 
 Goal: Mutual TLS scenario:
 

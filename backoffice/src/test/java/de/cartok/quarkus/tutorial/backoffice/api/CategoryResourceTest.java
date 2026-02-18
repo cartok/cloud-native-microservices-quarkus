@@ -11,9 +11,9 @@ import io.quarkus.test.security.TestSecurity;
 @QuarkusTest
 class CategoryResourceTest {
 
+  // TODO: At least in this example /categories is defined to be only accessible by "admin" role. Should create an additional test which validates error case.
   @Test
-  //  @TestSecurity(authorizationEnabled = false, user = "bob", roles = {"user"})
-  @TestSecurity(authorizationEnabled = true, user = "bob", roles = {"admin"})
+  @TestSecurity(user = "bob", roles = {"admin"})
   void getCategoriesAsAdminUser() {
     final var response = given()
       .when()
