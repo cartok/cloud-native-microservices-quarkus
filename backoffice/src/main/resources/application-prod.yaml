@@ -6,3 +6,15 @@ quarkus:
     username: should-come-from-env
   hibernate-orm:
     physical-naming-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+  http:
+    enable-compression: true
+    compressors:
+      - deflate
+      - gzip
+      - br
+    insecure-requests: disabled
+    ssl:
+      certificate:
+        files: /path/to/certificate
+        key-files: /path/to/key
+        reload-period: 1h
