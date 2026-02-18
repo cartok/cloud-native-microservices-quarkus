@@ -10,7 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
-@RolesAllowed({"user"})
+@RolesAllowed({"admin"})
 public class CategoryResource implements CategoriesApi {
 
   private final CategoryService service;

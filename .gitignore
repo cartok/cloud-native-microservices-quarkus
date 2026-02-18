@@ -1,4 +1,4 @@
-#Maven
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -17,6 +17,7 @@ bin/
 *.ipr
 *.iml
 *.iws
+http-client.private.env.json
 
 # NetBeans
 nb-configuration.xml

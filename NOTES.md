@@ -24,18 +24,24 @@ When I wanted to try out the REST resources with the Hibernate + Panache extensi
 
 #### Issues
 
-1. Vermute Probleme mit Zertifikaten die CN nicht auf eine Addresse und auch kein SAN gesetzt haben.
+1. CURL failed wenn man beim Zertifikat CN nicht auf eine Addresse (localhost oder 127.0.0.1), oder stattdessen SAN nicht gesetzt hat.
 
-- Curl failed
-  - mit `--cacert`
-  - mit `-k`?
-- IDEA HTTP Client failed ebenfalls und man bekommt keinen Dialog um das Zertifikat zu erlauben.
+2. Der IDEA HTTP Client:
 
-2. Der IDEA HTTP Client Bug: Die Base URL wird reused, wodurch ich nicht abwechselnd http & https eines Endpoints testen kann.
+- Bug: Failed den redirect, man bekommt nicht vorgeschlagen das Zertifikat zu erlauben, sieht nur: "javax.net.ssl.SSLHandshakeException: (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target"
+- Bug: Die Base URL wird reused, wodurch ich nicht abwechselnd http & https eines Endpoints testen kann. Update: Löste sich irgendwann, muss ein Cache-Problem gewesen sein.
 
 3. Die `@TestSecurity` Annotation
 
 - Wenn ich darüber die security disable werden `user` und `role` auch nicht validiert, es macht also keinen Sinn die zu setzen.
+
+### Documentation
+
+Goal: Mutual TLS scenario:
+
+- Entity 1 = server
+- Entity 2 = client A (bob)
+- Entity 3 = client B (alice)
 
 <pre>
 Truststore
@@ -47,7 +53,8 @@ Truststore
 </pre>
 
 ```zsh
-# Create keystore incl. certificate
+# Create keystore incl. certificate for backoffice identity
+
 keytool -genkeypair \
   -keyalg Ed25519 \
   -storetype PKCS12 \
@@ -56,15 +63,53 @@ keytool -genkeypair \
   -ext SAN=DNS:localhost,DNS:127.0.0.1 \
   -keypass changeit \
   -storepass changeit \
-  -keystore keystore.p12
+  -keystore service.p12
 
-# Export certificate from keystore
+# Export certificate from backoffice keystore
+
 keytool -exportcert \
-  -keystore keystore.p12 \
+  -keystore service.p12 \
   -storetype PKCS12 \
   -storepass changeit \
   -rfc \
-  -file certificate.crt
+  -file service.crt
+
+# Create two additional identities (bob and alice), extract their certificates to import them into a custom truststore, which will be configured in the backoffice quarkus config to be used in order to limit access to those two identities. Also export the private keys of the test identities to use them with the IDEA HTTP Client. The latter has to be done using openssl as keytool does not support exporting private keys of keystores and the IDEA HTTP Client can't use JVM p12 files.
+
+for name in bob alice; do
+  keytool -genkeypair \
+    -alias $name \
+    -keyalg Ed25519 \
+    -storetype PKCS12 \
+    -validity 3650 \
+    -dname "CN=$name" \
+    -keypass changeit \
+    -storepass changeit \
+    -keystore $name.p12
+  
+  keytool -exportcert \
+    -alias $name \
+    -keystore $name.p12 \
+    -storetype PKCS12 \
+    -storepass changeit \
+    -rfc \
+    -file $name.crt
+    
+  keytool -importcert \
+    -alias $name \
+    -file $name.crt \
+    -storetype PKCS12 \
+    -storepass changeit \
+    -noprompt \
+    -keystore service-truststore.p12
+  
+  openssl pkcs12 \
+    -in $name.p12 \
+    -out $name.key \
+    -nocerts \
+    -nodes \
+    -passin pass:changeit
+done
 ```
 
 ## Java

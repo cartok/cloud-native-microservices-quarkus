@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ### Get all
 GET {{url}}/tables
-#Authorization: Basic Ym9iOmZvbw==
+Authorization: Basic Ym9iOmZvbw==
 
 ### Get single
 GET {{url}}/tables/1

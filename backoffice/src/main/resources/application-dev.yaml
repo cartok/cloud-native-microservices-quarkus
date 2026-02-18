@@ -7,11 +7,14 @@ quarkus:
       reuse: true
       show-logs: true
   http:
-    insecure-requests: DISABLED
+    insecure-requests: REDIRECT
     ssl:
       certificate:
-        key-store-file: keystore.p12
+        key-store-file: ssl/service.p12
         key-store-file-type: PKCS12
+        trust-store-file: ssl/service-truststore.p12
+        trust-store-file-type: PKCS12
+      client-auth: REQUIRED
     auth:
       basic: true
       form:

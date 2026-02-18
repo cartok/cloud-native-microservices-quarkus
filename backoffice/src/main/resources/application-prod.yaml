@@ -10,8 +10,10 @@ quarkus:
     insecure-requests: DISABLED
     ssl:
       certificate:
-        key-store-file: keystore.p12
+        key-store-file: /not/defined
         key-store-file-type: PKCS12
+        trust-store-file: /not/defined
+        trust-store-file-type: PKCS12
         reload-period: 1h
     enable-compression: true
     compressors:
