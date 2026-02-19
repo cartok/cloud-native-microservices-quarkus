@@ -1,0 +1,22 @@
+include:
+  - ./compose.yml
+
+services:
+  postgres:
+    environment:
+      POSTGRES_USER: ezreal
+      POSTGRES_PASSWORD: ezreal
+    ports:
+      - "52520:5432"
+    profiles:
+      - disabled # using dev-service rn
+  keycloak:
+    ports:
+      - "52521:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    command:
+      - start-dev
+
+volumes:
+  keycloak-data:

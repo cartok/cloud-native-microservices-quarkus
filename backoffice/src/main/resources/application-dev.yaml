@@ -1,23 +1,27 @@
 quarkus:
   test:
     continuous-testing: PAUSED
+  devservices:
+    db-name: smartbar
   datasource:
     devservices:
       port: 52520
       reuse: true
       show-logs: true
-  http:
-    insecure-requests: REDIRECT
-    ssl:
-      certificate:
-        key-store-file: ssl/service.p12
-        key-store-file-type: PKCS12
-        trust-store-file: ssl/service-truststore.p12
-        trust-store-file-type: PKCS12
-      client-auth: REQUIRED
-    auth:
-      basic: true
-      form:
-        enabled: true
-        login-page: ""
-        landing-page: ""
+  oidc:
+    auth-server-url: http://localhost:52521/realm/smartbar-backoffice
+#  http:
+#    insecure-requests: REDIRECT
+#    ssl:
+#      certificate:
+#        key-store-file: ssl/service.p12
+#        key-store-file-type: PKCS12
+#        trust-store-file: ssl/service-truststore.p12
+#        trust-store-file-type: PKCS12
+#      client-auth: REQUIRED
+#    auth:
+#      basic: true
+#      form:
+#        enabled: true
+#        login-page: ""
+#        landing-page: ""

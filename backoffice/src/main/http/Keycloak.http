@@ -1,0 +1,21 @@
+### Exchange Code to Token
+POST {{keycloak.realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_secret = {{keycloak.secret}} &
+redirect_uri = {{keycloak.redirect_url}} &
+grant_type = authorization_code &
+client_id = {{keycloak.client_id}} &
+code = {{keycloak.interception.code}}
+
+### Token -> Userinfo
+GET {{keycloak.realm}}/protocol/openid-connect/userinfo
+Authorization: Bearer {{keycloak.intercepion.token}}
+
+### Introspect Token
+POST {{keycloak.realm}}/protocol/openid-connect/token/introspect
+Content-Type: application/x-www-form-urlencoded
+
+client_secret = {{keycloak.secret}} &
+client_id = {{keycloak.client_id}} &
+token = {{keycloak.intercepion.token}}

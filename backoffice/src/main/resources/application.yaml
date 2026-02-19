@@ -1,8 +1,6 @@
 quarkus:
   datasource:
     db-kind: postgresql
-    devservices:
-      db-name: smartbar
     jdbc: false
     reactive:
       additional-properties:
@@ -14,3 +12,6 @@ quarkus:
       sql: true
     schema-management:
       create-schemas: true
+  oidc:
+    client-id: smartbar-backoffice
+    application-type: web-app

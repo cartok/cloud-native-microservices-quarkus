@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    volumes:
+      - postgress-data:/var/lib/postgresql
+    profiles:
+      - disabled
+  keycloak:
+    image: keycloak/keycloak:26.4
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
+volumes:
+  postgress-data:

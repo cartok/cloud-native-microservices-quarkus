@@ -1,0 +1,13 @@
+include:
+  - ./compose.yml
+
+services:
+  db:
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  keycloak:
+    depends_on:
+      - postgres
+    command:
+      - start
